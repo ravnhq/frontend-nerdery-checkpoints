@@ -9,8 +9,6 @@ interface State {
   hasError: boolean
 }
 
-// TODO: catch render errors from children and show a role="alert" fallback
-// containing "Something went wrong". Right now it just renders children (no catching).
 export class ErrorBoundary extends Component<Props, State> {
 
   state: State = { hasError: false }
