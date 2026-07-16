@@ -1,6 +1,16 @@
+import { ContactCard } from './ContactCard'
 import type { Contact } from './types'
 
-// TODO: render one ContactCard per contact (stable key), or "No contacts found" when empty.
 export function ContactList({ contacts }: { contacts: Contact[] }) {
-  return <div>TODO: ContactList ({contacts.length} contacts)</div>
+  if (contacts.length === 0) {
+    return <p style={{ color: '#777777', fontStyle: 'italic' }}>No contacts found</p>
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {contacts.map((contact) => (
+        <ContactCard key={contact.id} contact={contact} />
+      ))}
+    </div>
+  )
 }
