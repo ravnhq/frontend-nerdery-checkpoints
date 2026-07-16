@@ -13,7 +13,8 @@ Implement the files in `src/` so the exports below behave as described.
 | `src/useDebouncedValue.ts` | `useDebouncedValue<T>(value: T, delayMs: number): T` | Return `value`, but only update the returned value `delayMs` ms **after** `value` stops changing. Use `setTimeout` inside a `useEffect` and **clear the timeout in the effect cleanup** so rapid changes reset the timer. |
 | `src/useLocalStorageState.ts` | `useLocalStorageState<T>(key, initialValue): [T, (value: T \| ((prev: T) => T)) => void]` | Initialize from `localStorage[key]` (JSON-parsed) when present, else from `initialValue`. Write JSON to `localStorage` on every change. |
 | `src/DebouncedSearch.tsx` | `DebouncedSearch()` | Text input labelled **"Search"** (associate the label using `useId`), auto-focused on mount (`useRef` + focus in an effect). Display the **debounced** query as text `Searching: {debounced}` using `useDebouncedValue` with **300ms**. |
-| `src/index.tsx` | `default Demo()` | Render `DebouncedSearch` under an `<h1>` for the dev server. |
+| `src/LocalStorageDemo.tsx` | `LocalStorageDemo()` | Visual demo of `useLocalStorageState`: a **counter** (with -1, +1, Reset buttons) and a **name input** that greets the user. Both values persist across page reloads. |
+| `src/index.tsx` | `default Demo()` | Render `DebouncedSearch` and `LocalStorageDemo` under an `<h1>` for the dev server. |
 
 ## Success criteria (automated)
 
