@@ -1,7 +1,34 @@
-import { initialContacts } from './types'
+import { useState } from 'react';
+import { Contact, initialContacts } from './types'
+import { ContactList } from './ContactList';
+import { ContactForm } from './ContactForm';
 
-// TODO: manage contact state; render a "Search contacts" input that filters by
-// name or email (case-insensitive); render ContactList and ContactForm (adding appends).
 export function SearchableContacts() {
-  return <div>TODO: SearchableContacts ({initialContacts.length} contacts)</div>
+  const [contacts, setContacts] = useState(initialContacts);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    contact.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  function handleAddContact(newContact: { name: string; email: string; role: string }) {
+    const contact: Contact = {
+      id: crypto.randomUUID(),
+      ...newContact
+    };
+    setContacts([...contacts, contact]);
+  }
+  
+  return <div>
+    <label htmlFor="search">Search contacts:</label>
+    <input
+      id="search"
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+    />
+    <ContactList contacts={filteredContacts} />
+    <ContactForm onAdd={handleAddContact} />
+  </div>
 }
+
