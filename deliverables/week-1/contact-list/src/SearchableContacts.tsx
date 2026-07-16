@@ -17,12 +17,29 @@ export function SearchableContacts() {
   }
 
   return (
-    <div>
-      <label htmlFor="contact-search">Search contacts</label>
-      <input id="contact-search" value={search} onChange={(event) => setSearch(event.target.value)} />
+    <div style={{ maxWidth: '480px', margin: '0 auto', padding: '24px', fontFamily: 'sans-serif' }}>
+      <div style={{ marginBottom: '16px' }}>
+        <label htmlFor="contact-search">Search contacts</label>
+        <input
+          id="contact-search"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          style={{
+            display: 'block',
+            marginTop: '4px',
+            padding: '6px 8px',
+            border: '1px solid #bbbbbb',
+            borderRadius: '4px',
+            width: '100%',
+          }}
+        />
+      </div>
 
       <ContactList contacts={filteredContacts} />
-      <ContactForm onAdd={handleAdd} />
+
+      <div style={{ marginTop: '16px' }}>
+        <ContactForm onAdd={handleAdd} />
+      </div>
     </div>
   )
 }

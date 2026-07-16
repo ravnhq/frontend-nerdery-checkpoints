@@ -30,19 +30,62 @@ export function ContactForm({ onAdd }: { onAdd: (contact: NewContact) => void })
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      {error && <p role="alert">{error}</p>}
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+        maxWidth: '320px',
+        padding: '16px',
+        border: '1px solid #d0d0d0',
+        borderRadius: '8px',
+        backgroundColor: '#fafafa',
+      }}
+    >
+      {error && (
+        <p role="alert" style={{ color: '#b00020', margin: 0 }}>
+          {error}
+        </p>
+      )}
 
       <label htmlFor="contact-name">Name</label>
-      <input id="contact-name" value={name} onChange={(event) => setName(event.target.value)} />
+      <input
+        id="contact-name"
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+        style={{ padding: '6px 8px', border: '1px solid #bbbbbb', borderRadius: '4px' }}
+      />
 
       <label htmlFor="contact-email">Email</label>
-      <input id="contact-email" value={email} onChange={(event) => setEmail(event.target.value)} />
+      <input
+        id="contact-email"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        style={{ padding: '6px 8px', border: '1px solid #bbbbbb', borderRadius: '4px' }}
+      />
 
       <label htmlFor="contact-role">Role</label>
-      <input id="contact-role" value={role} onChange={(event) => setRole(event.target.value)} />
+      <input
+        id="contact-role"
+        value={role}
+        onChange={(event) => setRole(event.target.value)}
+        style={{ padding: '6px 8px', border: '1px solid #bbbbbb', borderRadius: '4px' }}
+      />
 
-      <button type="submit">Add contact</button>
+      <button
+        type="submit"
+        style={{
+          padding: '8px 12px',
+          borderRadius: '4px',
+          border: 'none',
+          backgroundColor: '#2563eb',
+          color: '#ffffff',
+          cursor: 'pointer',
+        }}
+      >
+        Add contact
+      </button>
     </form>
   )
 }
