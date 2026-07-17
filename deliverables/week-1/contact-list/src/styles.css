@@ -1,0 +1,128 @@
+.app {
+  --color-bg: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-border: #e3e6ec;
+  --color-text: #1f2430;
+  --color-muted: #6b7280;
+  --color-primary: #3b5bfd;
+  --color-error-bg: #fdecec;
+  --color-error-border: #f3b4b4;
+  --color-error-text: #9c2626;
+
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+.app h1 {
+  font-size: 1.4rem;
+  margin: 0 0 1.25rem;
+}
+
+.field {
+  margin-bottom: 1.25rem;
+}
+
+.field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  margin-bottom: 0.3rem;
+}
+
+.field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.field input:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.contact-form {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1rem 1.1rem 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-form .field {
+  margin-bottom: 0.85rem;
+}
+
+.contact-form button {
+  margin-bottom: 1rem;
+  padding: 0.5rem 1.1rem;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  opacity: 0.9;
+}
+
+.form-error {
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  color: var(--color-error-text);
+  padding: 0.55rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 0.85rem;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.contact-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.9rem;
+}
+
+.contact-card p {
+  margin: 0;
+}
+
+.contact-card .contact-name {
+  font-weight: 600;
+  min-width: 160px;
+}
+
+.contact-card .contact-email,
+.contact-card .contact-role {
+  color: var(--color-muted);
+  font-size: 0.88rem;
+}
+
+.empty-state {
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.error-boundary-fallback {
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  color: var(--color-error-text);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+}
