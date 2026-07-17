@@ -1,0 +1,51 @@
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.contact-card {
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.contact-card p {
+  margin: 0;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.contact-form input {
+  width: 100%;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.contacts__search {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.contacts__search input {
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font: inherit;
+}
