@@ -1,10 +1,6 @@
-// TODO: render a text input labelled "Search" (associate the label with useId),
-// auto-focus it on mount (useRef + focus in an effect), and show the DEBOUNCED
-
 import { useEffect, useId, useRef, useState } from "react"
 import { useDebouncedValue } from "./useDebouncedValue"
 
-// query as text `Searching: {debounced}` using useDebouncedValue(query, 300).
 export function DebouncedSearch() {
 
   const inputId = useId()
