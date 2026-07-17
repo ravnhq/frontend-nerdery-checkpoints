@@ -1,12 +1,22 @@
-// TODO: initialize state from localStorage[key] (JSON-parsed) when present,
-// otherwise from initialValue. Write JSON to localStorage on every change.
+import { useState, useEffect } from 'react'
+
 export function useLocalStorageState<T>(
   key: string,
   initialValue: T,
 ): [T, (value: T | ((prev: T) => T)) => void] {
-  void key
-  const setValue = (value: T | ((prev: T) => T)): void => {
-    void value
-  }
-  return [initialValue, setValue]
+  const [state, setState] = useState<T>(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error(`Error reading localStorage key "${key}":`, error);
+      return initialValue;
+    }
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(state));
+  }, [key, state]);
+
+  return [state, setState];
 }
