@@ -1,3 +1,4 @@
+
 /* RAVN styling: color tokens as CSS variables, toggled via [data-theme]. */
 
 :root {
@@ -12,6 +13,8 @@
   --space-md: 1rem;
   --space-lg: 2rem;
   --radius: 8px;
+
+  --transition-fast: 600ms ease;
 }
 
 [data-theme='dark'] {
@@ -21,6 +24,25 @@
   --color-muted: #a0a0b8;
   --color-accent: #7d94ff;
   --color-border: #2c2c40;
+}
+
+.app,
+.card,
+.app__header,
+.app__toggle {
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app,
+  .card,
+  .app__header,
+  .app__toggle {
+    transition: none;
+  }
 }
 
 /* Consume tokens rather than hard-coded colors. */
@@ -78,7 +100,13 @@
   padding: var(--space-md);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  background: var(--color-surface);
+  background-color: var(--color-surface);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .card__title {
