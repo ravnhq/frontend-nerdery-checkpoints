@@ -31,5 +31,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
 export function useTheme(): ThemeContextValue {
   const value = useContext(ThemeContext)
-  return value ?? { theme: 'light', toggle: () => undefined }
+  if (value === null) {
+    throw new Error('useTheme must be used within a ThemeProvider')
+  }
+  return value
 }
