@@ -1,22 +1,32 @@
-import { createContext, useContext, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 
 type Theme = 'light' | 'dark'
 export type ThemeContextValue = { theme: Theme; toggle: () => void }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
-// TODO: hold theme in state (default 'light', hydrate from localStorage 'theme'),
-// persist on change, and set document.documentElement.dataset.theme via an effect.
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  return (
-    <ThemeContext.Provider value={{ theme: 'light', toggle: () => undefined }}>
-      {children}
-    </ThemeContext.Provider>
-  )
+function getInitialTheme(): Theme {
+  const stored = localStorage.getItem('theme')
+  return stored === 'dark' ? 'dark' : 'light'
 }
 
-// TODO: throw when used outside a ThemeProvider.
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setTheme] = useState<Theme>(getInitialTheme)
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme)
+    document.documentElement.dataset.theme = theme
+  }, [theme])
+
+  const toggle = () => setTheme((current) => (current === 'light' ? 'dark' : 'light'))
+
+  return <ThemeContext.Provider value={{ theme, toggle }}>{children}</ThemeContext.Provider>
+}
+
 export function useTheme(): ThemeContextValue {
   const value = useContext(ThemeContext)
-  return value ?? { theme: 'light', toggle: () => undefined }
+  if (!value) {
+    throw new Error('useTheme must be used within a ThemeProvider')
+  }
+  return value
 }
