@@ -1,19 +1,26 @@
 import { useState } from 'react'
 
-// A reusable GENERIC hook. `<T>` lets it store any shape (number, object, …)
-// while keeping the value and setter fully typed at each call site.
-//
-// TODO:
-//   - hydrate the initial value from localStorage[key] (fall back to initialValue)
-//   - persist the value to localStorage on every change
-//   - support both `setValue(next)` and `setValue(prev => next)` forms
 export function useLocalStorageState<T>(
-  _key: string,
+  key: string,
   initialValue: T,
 ): [T, (value: T | ((prev: T) => T)) => void] {
-  const [value] = useState<T>(initialValue)
-  const setValue = (_value: T | ((prev: T) => T)): void => {
-    // TODO: update state and persist to localStorage.
+
+  const [value, setState] = useState<T>(() => {
+    const item = localStorage.getItem(key)
+    return item ? JSON.parse(item) : initialValue
+  })
+
+  const setValue = (valueOrUpdater: T | ((prev: T) => T)): void => {
+    setState((prev) => {
+      const next =
+        typeof valueOrUpdater === 'function'
+          ? (valueOrUpdater as (prev: T) => T)(prev)
+          : valueOrUpdater
+
+      localStorage.setItem(key, JSON.stringify(next))
+      return next
+    })
   }
+  
   return [value, setValue]
 }
