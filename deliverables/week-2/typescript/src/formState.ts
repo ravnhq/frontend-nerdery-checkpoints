@@ -4,18 +4,18 @@ export type FormState =
   | { status: 'success'; id: string }
   | { status: 'error'; message: string }
 
-export function describeState(_state: FormState): string {
-  switch (_state.status) {
+export function describeState(state: FormState): string {
+  switch (state.status) {
     case 'idle':
       return 'Ready'
     case 'submitting':
       return 'Submitting…'
     case 'success':
-      return `Saved #${_state.id}`
+      return `Saved #${state.id}`
     case 'error':
-      return _state.message
+      return state.message
     default: {
-      const _exhaustive: never = _state
+      const _exhaustive: never = state
       return _exhaustive
     }
   }
