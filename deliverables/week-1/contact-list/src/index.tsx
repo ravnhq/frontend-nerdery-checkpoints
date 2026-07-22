@@ -1,5 +1,7 @@
 import { ErrorBoundary } from './ErrorBoundary'
 import { SearchableContacts } from './SearchableContacts'
+import '../../styling/src/theme.css'
+import './contact.css'
 
 // Runnable demo shown in the dev server.
 export default function Demo() {

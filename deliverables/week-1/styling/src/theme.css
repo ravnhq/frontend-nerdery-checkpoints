@@ -23,6 +23,18 @@
   --color-border: #2c2c40;
 }
 
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
 /* Consume tokens rather than hard-coded colors. */
 .app {
   min-height: 100vh;
