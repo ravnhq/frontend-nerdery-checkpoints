@@ -1,3 +1,5 @@
+import { useRef } from 'react'
+import { flushSync } from 'react-dom'
 import { useCart } from './CartContext'
 
 // Sample products the demo can add to the cart. Integer prices keep the
@@ -9,14 +11,43 @@ const SAMPLE_PRODUCTS = [
 
 export function Cart() {
   const { state, total, add, remove, setQty, clear } = useCart()
+  const firstAddButtonRef = useRef<HTMLButtonElement>(null)
+
+  const focusAddControls = () => {
+    firstAddButtonRef.current?.focus()
+  }
+
+  const handleRemove = (id: string) => {
+    flushSync(() => remove(id))
+    focusAddControls()
+  }
+
+  const handleSetQty = (id: string, qty: number) => {
+    if (qty <= 0) {
+      flushSync(() => setQty(id, qty))
+      focusAddControls()
+    } else {
+      setQty(id, qty)
+    }
+  }
+
+  const handleClear = () => {
+    flushSync(() => clear())
+    focusAddControls()
+  }
 
   return (
     <section aria-label="Shopping cart">
       <h2>Cart</h2>
 
       <div>
-        {SAMPLE_PRODUCTS.map((product) => (
-          <button key={product.id} type="button" onClick={() => add(product)}>
+        {SAMPLE_PRODUCTS.map((product, index) => (
+          <button
+            key={product.id}
+            ref={index === 0 ? firstAddButtonRef : undefined}
+            type="button"
+            onClick={() => add(product)}
+          >
             Add {product.name} (${product.price})
           </button>
         ))}
@@ -37,10 +68,10 @@ export function Cart() {
                   type="number"
                   min={0}
                   value={item.qty}
-                  onChange={(e) => setQty(item.id, Number(e.target.value))}
+                  onChange={(e) => handleSetQty(item.id, Number(e.target.value))}
                 />
               </label>
-              <button type="button" onClick={() => remove(item.id)}>
+              <button type="button" onClick={() => handleRemove(item.id)}>
                 Remove {item.name}
               </button>
             </li>
@@ -50,7 +81,7 @@ export function Cart() {
 
       <p data-testid="cart-total">Total: ${total}</p>
 
-      <button type="button" onClick={clear}>
+      <button type="button" onClick={handleClear}>
         Clear cart
       </button>
     </section>
