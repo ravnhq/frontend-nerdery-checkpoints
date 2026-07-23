@@ -1,11 +1,12 @@
+import './cart.css'
 import { CartProvider } from './CartContext'
 import { Cart } from './Cart'
 
 // Runnable demo shown in the dev server.
 export default function Demo() {
   return (
-    <main style={{ fontFamily: 'system-ui', maxWidth: 640, margin: '1rem auto', padding: '0 1rem' }}>
-      <h1>Shopping Cart</h1>
+    <main className="cart-page">
+      <h1 className="cart-page__title">Shopping Cart</h1>
       <CartProvider>
         <Cart />
       </CartProvider>
