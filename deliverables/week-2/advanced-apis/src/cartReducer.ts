@@ -17,12 +17,53 @@ export type CartAction =
 
 export const initialCart: CartState = { items: [] }
 
-// STUB: returns state unchanged so behaviour tests fail (RED).
 export function cartReducer(state: CartState, _action: CartAction): CartState {
-  return state
+  switch (_action.type) {
+    case 'add': {
+      const existingItem = state.items.find((item) => item.id === _action.item.id)
+
+      if (existingItem) {
+        return {
+          ...state,
+          items: state.items.map((item) =>
+            item.id === _action.item.id ? { ...item, qty: item.qty + 1 } : item
+          ),
+        }
+      }
+
+      return {
+        ...state,
+        items: [...state.items, { ..._action.item, qty: 1 }],
+      }
+    }
+    case 'remove': {
+      return {
+        items: state.items.filter(item => item.id !== _action.id),
+      };
+    }
+    case 'setQty': {
+      if (_action.qty <= 0) {
+        return {
+          items: state.items.filter(item => item.id !== _action.id),
+        };
+      }
+      return {
+        items: state.items.map(item =>
+          item.id === _action.id ? { ...item, qty: _action.qty } : item
+        ),
+      };
+    }
+
+    case 'clear': {
+      return { items: [] }
+    }
+    default: {
+      const _exhaustive: never = _action
+      return _exhaustive
+    }
+  }
 }
 
-// STUB: returns 0 so selectTotal test fails (RED).
 export function selectTotal(_state: CartState): number {
-  return 0
+  return _state.items.reduce((total, item) => total + item.price * item.qty, 0);
 }
