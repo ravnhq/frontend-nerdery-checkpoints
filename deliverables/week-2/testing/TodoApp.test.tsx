@@ -4,10 +4,15 @@ import { render, screen } from '@testing-library/react'
 import { TodoApp } from './src/TodoApp'
 
 describe('TodoApp', () => {
-  // Starter smoke test — this one already passes. Leave it or improve it.
-  it('renders the new-todo input', () => {
+
+   it('renders the new-todo input', () => {
     render(<TodoApp />)
     expect(screen.getByLabelText(/new todo/i)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /add/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /all/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /completed/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /active/i })).toBeInTheDocument()
+    expect(screen.getByText('0 left')).toBeInTheDocument()
   })
 
   // Replace each placeholder below with a real test.
