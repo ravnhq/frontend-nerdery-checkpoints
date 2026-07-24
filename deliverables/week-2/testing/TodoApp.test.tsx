@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-// import userEvent from '@testing-library/user-event'  // ← you'll want this
+import userEvent from '@testing-library/user-event'
 import { TodoApp } from './src/TodoApp'
 
 describe('TodoApp', () => {
 
-   it('renders the new-todo input', () => {
+  it('renders the new-todo input', () => {
     render(<TodoApp />)
     expect(screen.getByLabelText(/new todo/i)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /add/i })).toBeInTheDocument()
@@ -15,11 +15,16 @@ describe('TodoApp', () => {
     expect(screen.getByText('0 left')).toBeInTheDocument()
   })
 
-  // Replace each placeholder below with a real test.
-  // Tip: `const user = userEvent.setup()` then `await user.type(...)` /
-  // `await user.click(...)`. Query by role/label, assert on what the user sees.
+  it('adds a non-empty todo to the list', async () => {
+    const user = userEvent.setup()
+    const testTodo = 'Buy milk'
+    render(<TodoApp />)
+    await user.type(screen.getByLabelText(/new todo/i), testTodo)
+    await user.click(screen.getByRole('button', { name: /add/i }))
+    expect(screen.getByText(testTodo)).toBeInTheDocument()
 
-  it.todo('adds a non-empty todo to the list')
+  })
+
   it.todo('ignores empty / whitespace-only input')
   it.todo('clears the input after adding')
   it.todo('toggles a todo completed via its checkbox')
