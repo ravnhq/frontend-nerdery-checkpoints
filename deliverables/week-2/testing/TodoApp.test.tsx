@@ -55,8 +55,18 @@ describe('TodoApp', () => {
     await user.click(screen.getByRole('checkbox', { name: testTodo }))
     expect(screen.getByRole('checkbox', { name: testTodo })).not.toBeChecked()
   })
-  
-  it.todo('deletes a todo via its Delete button')
+
+  it('deletes a todo via its Delete button', async () => {
+    const user = userEvent.setup()
+    const testTodo = 'Delete this todo'
+    render(<TodoApp />)
+    await user.type(screen.getByLabelText(/new todo/i), testTodo)
+    await user.click(screen.getByRole('button', { name: /add/i }))
+    await user.click(screen.getByRole('button', { name: `Delete ${testTodo}` }))
+    expect(screen.queryByText(testTodo)).not.toBeInTheDocument()
+
+  })
+
   it.todo('Active filter shows only not-completed todos')
   it.todo('Completed filter shows only completed todos')
   it.todo('All filter shows every todo again')
