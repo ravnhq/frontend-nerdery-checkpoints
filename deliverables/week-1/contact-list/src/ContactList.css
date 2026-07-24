@@ -1,0 +1,64 @@
+@import './contacts.css';
+
+.contact-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-list__item {
+  position: relative;
+  border-top: 1px solid var(--contact-rule);
+}
+
+.contact-list__item:last-child {
+  border-bottom: 1px solid var(--contact-rule);
+}
+
+/* The accent bar scales in on hover. transform only, so it never touches
+   layout. */
+.contact-list__item::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: -0.75rem;
+  width: 2px;
+  background: var(--contact-accent);
+  transform: scaleY(0);
+  transform-origin: center top;
+  transition: transform var(--contact-duration) var(--contact-ease);
+}
+
+.contact-list__item:hover::before {
+  transform: scaleY(1);
+}
+
+/* Empty state gets the same rule-work as a populated list, so the layout holds
+   its shape instead of collapsing to a stray line of text. */
+.contact-list__empty {
+  margin: 0;
+  padding: var(--contact-space-xl) var(--contact-space-md);
+  border-top: 1px solid var(--contact-rule);
+  border-bottom: 1px solid var(--contact-rule);
+  color: var(--contact-muted);
+  font-size: var(--contact-text-label);
+  font-weight: 600;
+  letter-spacing: var(--contact-track-label);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.contact-list__empty::before {
+  content: '—';
+  display: block;
+  margin-bottom: var(--contact-space-sm);
+  color: var(--contact-rule);
+  font-size: 1.5rem;
+  letter-spacing: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-list__item::before {
+    transition: none;
+  }
+}

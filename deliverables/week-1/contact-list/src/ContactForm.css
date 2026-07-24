@@ -1,0 +1,178 @@
+@import './contacts.css';
+
+.contact-form {
+  display: grid;
+  gap: var(--contact-space-md);
+  padding: var(--contact-space-lg);
+  background: var(--contact-raised);
+  border: 1px solid var(--contact-rule);
+  font-family: var(--contact-sans);
+  color: var(--contact-ink);
+}
+
+/* Once the form has its own column it follows you down the directory. */
+@media (min-width: 1024px) {
+  .contact-form {
+    position: sticky;
+    top: var(--contact-space-lg);
+  }
+}
+
+.contact-form__title {
+  margin: 0;
+  padding-bottom: var(--contact-space-sm);
+  border-bottom: 2px solid var(--contact-ink);
+  font-size: var(--contact-text-label);
+  font-weight: 700;
+  letter-spacing: var(--contact-track-label);
+  text-transform: uppercase;
+}
+
+.contact-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--contact-space-2xs);
+}
+
+.contact-form__input {
+  padding: var(--contact-space-xs) 0;
+  border: 0;
+  border-bottom: 1px solid var(--contact-rule);
+  background: transparent;
+  color: var(--contact-ink);
+  font-family: inherit;
+  font-size: var(--contact-text-body);
+  transition: border-color var(--contact-duration) var(--contact-ease);
+}
+
+.contact-form__input:hover {
+  border-bottom-color: var(--contact-muted);
+}
+
+.contact-form__input:focus-visible {
+  border-bottom-color: var(--contact-accent);
+}
+
+/* Email: a username field carrying a fixed @ravn.co, so nobody types the domain
+   twice. The rule lives on the wrapper so the input and suffix read as one
+   field, and :focus-within moves that rule to the accent as you edit. */
+.contact-form__combo {
+  display: flex;
+  align-items: baseline;
+  gap: 0.125rem;
+  border-bottom: 1px solid var(--contact-rule);
+  transition: border-color var(--contact-duration) var(--contact-ease);
+}
+
+.contact-form__combo:hover {
+  border-bottom-color: var(--contact-muted);
+}
+
+.contact-form__combo:focus-within {
+  border-bottom-color: var(--contact-accent);
+}
+
+.contact-form__input--flush {
+  flex: 1;
+  min-width: 0;
+  border-bottom: 0;
+}
+
+.contact-form__suffix {
+  flex: none;
+  font-family: var(--contact-mono);
+  font-size: var(--contact-text-body);
+  color: var(--contact-muted);
+  white-space: nowrap;
+}
+
+/* Role: a native select restyled onto the same baseline rule as the text
+   fields. The caret is a CSS triangle in a token colour, so it tracks
+   light/dark instead of being baked into an SVG. */
+.contact-form__select-wrap {
+  position: relative;
+  display: flex;
+}
+
+.contact-form__select {
+  flex: 1;
+  min-width: 0;
+  padding: var(--contact-space-xs) 1.25rem var(--contact-space-xs) 0;
+  border: 0;
+  border-bottom: 1px solid var(--contact-rule);
+  background: transparent;
+  color: var(--contact-ink);
+  font-family: inherit;
+  font-size: var(--contact-text-body);
+  cursor: pointer;
+  appearance: none;
+  transition: border-color var(--contact-duration) var(--contact-ease);
+}
+
+.contact-form__select:hover {
+  border-bottom-color: var(--contact-muted);
+}
+
+.contact-form__select:focus-visible {
+  border-bottom-color: var(--contact-accent);
+}
+
+.contact-form__select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-inline: 4px solid transparent;
+  border-top: 5px solid var(--contact-muted);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.contact-form__error {
+  margin: 0;
+  padding: var(--contact-space-sm) var(--contact-space-md);
+  border-inline-start: 2px solid var(--contact-danger);
+  background: var(--contact-danger-soft);
+  color: var(--contact-danger);
+  font-size: var(--contact-text-body);
+}
+
+.contact-form__submit {
+  justify-self: start;
+  padding: var(--contact-space-sm) var(--contact-space-lg);
+  border: 0;
+  background: var(--contact-ink);
+  color: var(--contact-paper);
+  font-family: inherit;
+  font-size: var(--contact-text-label);
+  font-weight: 700;
+  letter-spacing: var(--contact-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--contact-duration) var(--contact-ease),
+    transform var(--contact-duration) var(--contact-ease);
+}
+
+.contact-form__submit:hover {
+  background: var(--contact-accent);
+}
+
+.contact-form__submit:active {
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-form__input,
+  .contact-form__combo,
+  .contact-form__select,
+  .contact-form__submit {
+    transition: none;
+  }
+
+  .contact-form__submit:active {
+    transform: none;
+  }
+}

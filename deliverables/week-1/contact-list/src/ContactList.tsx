@@ -1,6 +1,19 @@
+import { ContactCard } from './ContactCard'
 import type { Contact } from './types'
+import './ContactList.css'
 
-// TODO: render one ContactCard per contact (stable key), or "No contacts found" when empty.
 export function ContactList({ contacts }: { contacts: Contact[] }) {
-  return <div>TODO: ContactList ({contacts.length} contacts)</div>
+  if (contacts.length === 0) {
+    return <p className="contact-list__empty">No contacts found</p>
+  }
+
+  return (
+    <ul className="contact-list">
+      {contacts.map((contact) => (
+        <li className="contact-list__item" key={contact.id}>
+          <ContactCard contact={contact} />
+        </li>
+      ))}
+    </ul>
+  )
 }

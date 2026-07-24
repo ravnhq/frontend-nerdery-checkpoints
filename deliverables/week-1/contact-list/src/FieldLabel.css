@@ -1,0 +1,9 @@
+@import './contacts.css';
+
+.field-label {
+  font-size: var(--contact-text-label);
+  font-weight: 600;
+  letter-spacing: var(--contact-track-label);
+  text-transform: uppercase;
+  color: var(--contact-muted);
+}

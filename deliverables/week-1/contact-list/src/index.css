@@ -1,0 +1,33 @@
+@import './contacts.css';
+
+.contact-demo {
+  /* Scoped rather than set on :root so the other deliverables' demos keep
+     their own canvas. */
+  color-scheme: light dark;
+  min-height: 100vh;
+  padding-block: var(--contact-space-xl);
+  padding-inline: clamp(1rem, 0.4rem + 2.6vw, 3.5rem);
+  background: var(--contact-paper);
+  color: var(--contact-ink);
+  font-family: var(--contact-sans);
+}
+
+.contact-demo__inner {
+  max-width: 68rem;
+  margin-inline: auto;
+}
+
+.contact-demo__masthead {
+  margin-bottom: var(--contact-space-xl);
+  padding-bottom: var(--contact-space-sm);
+  border-bottom: 4px solid var(--contact-ink);
+}
+
+.contact-demo__title {
+  margin: 0;
+  font-size: var(--contact-text-title);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}

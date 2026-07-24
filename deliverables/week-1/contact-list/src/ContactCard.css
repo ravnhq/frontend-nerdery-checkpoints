@@ -1,0 +1,73 @@
+@import './contacts.css';
+
+.contact-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--contact-space-2xs);
+  padding: var(--contact-space-md) 0;
+}
+
+.contact-card__name {
+  margin: 0;
+  font-size: var(--contact-text-name);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  transition: color var(--contact-duration) var(--contact-ease);
+}
+
+.contact-list__item:hover .contact-card__name {
+  color: var(--contact-accent);
+}
+
+/* Mono for the address: it's machine data, and the family shift does the
+   separating work that a second colour would otherwise have to do. */
+.contact-card__email {
+  margin: 0;
+  font-family: var(--contact-mono);
+  font-size: var(--contact-text-body);
+  color: var(--contact-muted);
+  overflow-wrap: anywhere;
+}
+
+.contact-card__role {
+  margin: 0;
+  font-size: var(--contact-text-label);
+  font-weight: 600;
+  letter-spacing: var(--contact-track-label);
+  /* Uppercase in CSS, never in the string — the DOM text stays "Engineer" so
+     the spec's text queries keep matching. */
+  text-transform: uppercase;
+  color: var(--contact-muted);
+}
+
+/* Wide enough to run the role as a right-hand column against the name's
+   baseline; below that everything stacks. */
+@media (min-width: 640px) {
+  .contact-card {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--contact-space-md);
+    align-items: baseline;
+  }
+
+  .contact-card__name {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .contact-card__email {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .contact-card__role {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-card__name {
+    transition: none;
+  }
+}

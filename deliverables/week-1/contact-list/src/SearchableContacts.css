@@ -1,0 +1,78 @@
+@import './contacts.css';
+
+.contacts {
+  font-family: var(--contact-sans);
+  color: var(--contact-ink);
+}
+
+/* Search sits above a heavy rule — the one structural break between "how you
+   narrow the directory" and the directory itself. */
+.contacts__search {
+  display: flex;
+  flex-direction: column;
+  gap: var(--contact-space-2xs);
+  padding-bottom: var(--contact-space-sm);
+  border-bottom: 2px solid var(--contact-ink);
+}
+
+.contacts__input {
+  width: 100%;
+  padding: var(--contact-space-2xs) 0;
+  border: 0;
+  background: transparent;
+  color: var(--contact-ink);
+  font-family: inherit;
+  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+  letter-spacing: -0.01em;
+}
+
+.contacts__input::placeholder {
+  color: var(--contact-muted);
+}
+
+/*
+ * Asymmetric on purpose: the directory carries the page and the form reads as a
+ * margin note beside it, not as a second equal column.
+ */
+.contacts__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--contact-space-xl);
+  padding-top: var(--contact-space-lg);
+}
+
+@media (min-width: 1024px) {
+  .contacts__body {
+    grid-template-columns: minmax(0, 1.7fr) minmax(15rem, 0.8fr);
+    align-items: start;
+  }
+}
+
+.contacts__directory {
+  min-width: 0;
+}
+
+.contacts__count {
+  display: flex;
+  align-items: baseline;
+  gap: var(--contact-space-sm);
+  margin: 0 0 var(--contact-space-md);
+}
+
+.contacts__count-value {
+  font-size: var(--contact-text-count);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Reads like FieldLabel but isn't one: this captions a number, it doesn't label
+   a control, so it stays a span with its own private style. */
+.contacts__count-label {
+  font-size: var(--contact-text-label);
+  font-weight: 600;
+  letter-spacing: var(--contact-track-label);
+  text-transform: uppercase;
+  color: var(--contact-muted);
+}

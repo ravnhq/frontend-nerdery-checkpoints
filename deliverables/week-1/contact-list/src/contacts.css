@@ -1,0 +1,88 @@
+/*
+ * Contact list — Swiss editorial direction.
+ *
+ * Hierarchy comes from type scale, weight and rule-work rather than from cards
+ * or decoration. One grotesque carries the structure, a mono carries machine
+ * data (emails), and a single accent is reserved for interaction and emphasis
+ * so colour stays semantic instead of ornamental.
+ *
+ * Tokens are prefixed `--contact-*` deliberately: the dev server is a SPA and
+ * Vite keeps every visited deliverable's CSS injected, so bare names like
+ * `--color-bg` would collide with week-1/styling's theme tokens.
+ */
+
+:root {
+  --contact-paper: oklch(98.6% 0.002 264);
+  --contact-raised: oklch(100% 0 0);
+  --contact-ink: oklch(22% 0.015 264);
+  --contact-muted: oklch(50% 0.015 264);
+  --contact-rule: oklch(89% 0.005 264);
+  --contact-accent: oklch(50% 0.19 256);
+  --contact-accent-soft: oklch(95% 0.03 256);
+  --contact-danger: oklch(51% 0.2 27);
+  --contact-danger-soft: oklch(96% 0.025 27);
+
+  --contact-sans: 'Helvetica Neue', Helvetica, Inter, system-ui, Arial, sans-serif;
+  --contact-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  --contact-text-title: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --contact-text-count: clamp(2.25rem, 1.6rem + 2.8vw, 3.5rem);
+  --contact-text-name: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
+  --contact-text-body: 0.875rem;
+  --contact-text-label: 0.6875rem;
+
+  --contact-space-2xs: 0.25rem;
+  --contact-space-xs: 0.5rem;
+  --contact-space-sm: 0.75rem;
+  --contact-space-md: 1.25rem;
+  --contact-space-lg: 2rem;
+  --contact-space-xl: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+
+  --contact-track-label: 0.14em;
+  --contact-duration: 140ms;
+  --contact-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Theming follows the house convention: `[data-theme]` on the root element
+   drives the palette. */
+[data-theme='dark'] {
+  --contact-paper: oklch(17% 0.014 264);
+  --contact-raised: oklch(21% 0.016 264);
+  --contact-ink: oklch(95% 0.004 264);
+  --contact-muted: oklch(68% 0.014 264);
+  --contact-rule: oklch(30% 0.014 264);
+  --contact-accent: oklch(72% 0.15 256);
+  --contact-accent-soft: oklch(28% 0.06 256);
+  --contact-danger: oklch(70% 0.16 25);
+  --contact-danger-soft: oklch(28% 0.07 25);
+}
+
+/* Nothing sets `data-theme` on this route — the provider that does is the
+   week-1/styling deliverable — so honour the OS preference until something
+   does. Guarding on `:not([data-theme])` keeps an explicit choice winning in
+   both directions once one exists. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --contact-paper: oklch(17% 0.014 264);
+    --contact-raised: oklch(21% 0.016 264);
+    --contact-ink: oklch(95% 0.004 264);
+    --contact-muted: oklch(68% 0.014 264);
+    --contact-rule: oklch(30% 0.014 264);
+    --contact-accent: oklch(72% 0.15 256);
+    --contact-accent-soft: oklch(28% 0.06 256);
+    --contact-danger: oklch(70% 0.16 25);
+    --contact-danger-soft: oklch(28% 0.07 25);
+  }
+}
+
+/*
+ * Nothing below is a component's styles — those live beside their component.
+ * This is the deliverable's base layer: tokens above, and one focus treatment
+ * so keyboard use reads as designed rather than as a browser default.
+ */
+.contacts :focus-visible,
+.contact-demo :focus-visible {
+  outline: 2px solid var(--contact-accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}

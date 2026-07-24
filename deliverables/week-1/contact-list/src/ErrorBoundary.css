@@ -1,0 +1,16 @@
+@import './contacts.css';
+
+/* Self-contained on purpose: the boundary can wrap anything, so it can't assume
+   another component already pulled the tokens in. */
+.contact-error {
+  margin: 0;
+  padding: var(--contact-space-lg);
+  border-inline-start: 3px solid var(--contact-danger);
+  background: var(--contact-danger-soft);
+  color: var(--contact-danger);
+  font-family: var(--contact-sans);
+  font-size: var(--contact-text-label);
+  font-weight: 700;
+  letter-spacing: var(--contact-track-label);
+  text-transform: uppercase;
+}
