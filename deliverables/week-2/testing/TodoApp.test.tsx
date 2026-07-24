@@ -67,7 +67,22 @@ describe('TodoApp', () => {
 
   })
 
-  it.todo('Active filter shows only not-completed todos')
+  it('Active filter shows only not-completed todos', async () => {
+    const user = userEvent.setup()
+    const notCompletedTodo = 'Not check todo'
+    const completedTodo = 'check todo'
+    render(<TodoApp />)
+    await user.type(screen.getByLabelText(/new todo/i), notCompletedTodo)
+    await user.click(screen.getByRole('button', { name: /add/i }))
+    await user.type(screen.getByLabelText(/new todo/i), completedTodo)
+    await user.click(screen.getByRole('button', { name: /add/i }))
+    await user.click(screen.getByRole('checkbox', { name: completedTodo }))
+    await user.click(screen.getByRole('button', { name: /active/i }))
+    expect(screen.queryByText(notCompletedTodo)).toBeInTheDocument()
+    expect(screen.queryByText(completedTodo)).not.toBeInTheDocument()
+  })
+
+  
   it.todo('Completed filter shows only completed todos')
   it.todo('All filter shows every todo again')
   it.todo('shows the count of active todos as "{n} left"')
