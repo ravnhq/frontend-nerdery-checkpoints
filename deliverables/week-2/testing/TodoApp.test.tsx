@@ -98,6 +98,22 @@ describe('TodoApp', () => {
     expect(screen.queryByText(notCompletedTodo)).not.toBeInTheDocument()
   })
 
-  it.todo('All filter shows every todo again')
+ it('All filter shows every todo again', async () => {
+    const user = userEvent.setup()
+    const completedTodo = 'check todo'
+    const notCompletedTodo = 'Not check todo'
+    render(<TodoApp />)
+    await user.type(screen.getByLabelText(/new todo/i), completedTodo)
+    await user.click(screen.getByRole('button', { name: /add/i }))
+    await user.type(screen.getByLabelText(/new todo/i), notCompletedTodo)
+    await user.click(screen.getByRole('button', { name: /add/i }))
+    await user.click(screen.getByRole('checkbox', { name: completedTodo }))
+    await user.click(screen.getByRole('button', { name: /completed/i }))
+    expect(screen.queryByText(completedTodo)).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: /all/i }))
+    expect(screen.queryByText(completedTodo)).toBeInTheDocument()
+    expect(screen.queryByText(notCompletedTodo)).toBeInTheDocument()
+  })
+
   it.todo('shows the count of active todos as "{n} left"')
 })
