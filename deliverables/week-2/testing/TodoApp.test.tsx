@@ -25,8 +25,23 @@ describe('TodoApp', () => {
 
   })
 
-  it.todo('ignores empty / whitespace-only input')
-  it.todo('clears the input after adding')
+  it('ignores empty / whitespace-only input', async () => {
+    const user = userEvent.setup()
+    render(<TodoApp />)
+    await user.type(screen.getByLabelText(/new todo/i), '   ')
+    await user.click(screen.getByRole('button', { name: /add/i }))
+    expect(screen.queryAllByRole('listitem')).toHaveLength(0)
+  })
+
+
+  it('clears the input after adding', async () => {
+    const user = userEvent.setup()
+    const testTodo = 'Walk the dog'
+    render(<TodoApp />)
+    await user.type(screen.getByLabelText(/new todo/i), testTodo)
+    await user.click(screen.getByRole('button', { name: /add/i }))
+    expect(screen.getByLabelText(/new todo/i)).toHaveValue('')
+  })
   it.todo('toggles a todo completed via its checkbox')
   it.todo('deletes a todo via its Delete button')
   it.todo('Active filter shows only not-completed todos')
