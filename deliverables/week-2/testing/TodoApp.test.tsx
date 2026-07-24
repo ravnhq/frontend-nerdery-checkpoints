@@ -42,7 +42,20 @@ describe('TodoApp', () => {
     await user.click(screen.getByRole('button', { name: /add/i }))
     expect(screen.getByLabelText(/new todo/i)).toHaveValue('')
   })
-  it.todo('toggles a todo completed via its checkbox')
+
+  it('toggles a todo completed via its checkbox', async () => {
+    const user = userEvent.setup()
+    const testTodo = 'Toggle this todo'
+    render(<TodoApp />)
+    await user.type(screen.getByLabelText(/new todo/i), testTodo)
+    await user.click(screen.getByRole('button', { name: /add/i }))
+    await user.click(screen.getByRole('checkbox', { name: testTodo }))
+    expect(screen.getByRole('checkbox', { name: testTodo })).toBeChecked()
+
+    await user.click(screen.getByRole('checkbox', { name: testTodo }))
+    expect(screen.getByRole('checkbox', { name: testTodo })).not.toBeChecked()
+  })
+  
   it.todo('deletes a todo via its Delete button')
   it.todo('Active filter shows only not-completed todos')
   it.todo('Completed filter shows only completed todos')
