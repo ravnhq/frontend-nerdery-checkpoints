@@ -64,6 +64,9 @@ describe('TodoApp', () => {
     const checkbox = screen.getByRole('checkbox', { name: 'Learn TypeScript' })
     await user.click(checkbox)
     expect(checkbox).toBeChecked()
+
+    await user.click(checkbox)
+    expect(checkbox).not.toBeChecked()
   })
 
   it('deletes a todo via its Delete button', async () => {
