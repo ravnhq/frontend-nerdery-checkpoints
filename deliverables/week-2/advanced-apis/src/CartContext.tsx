@@ -1,5 +1,12 @@
-import React from 'react'
-import { type CartState, initialCart } from './cartReducer'
+import React, { createContext, useContext, useReducer } from 'react';
+import { CartAction, cartReducer, type CartState, initialCart, selectTotal } from './cartReducer';
+
+type CartContextType = {
+  state: CartState
+  dispatch: React.ActionDispatch<[_action: CartAction]>
+}
+
+export const CartContext = createContext<CartContextType | null>(null);
 
 export interface CartApi {
   state: CartState
@@ -10,20 +17,24 @@ export interface CartApi {
   clear: () => void
 }
 
-// STUB: provider just renders children.
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  const [state, dispatch] = useReducer(cartReducer, initialCart);
+
+  return <CartContext.Provider value={{ state, dispatch }}>{children}</CartContext.Provider>;
 }
 
-// STUB: returns a dummy that does NOT throw and never updates, so the
-// context + integration tests fail (RED).
 export function useCart(): CartApi {
+  const context = useContext(CartContext);
+  if (!context) throw new Error('useCart must be used inside CartProvider');
+
+  const total = selectTotal(context.state);
+
   return {
-    state: initialCart,
-    total: 0,
-    add: () => {},
-    remove: () => {},
-    setQty: () => {},
-    clear: () => {},
-  }
+    state: context.state,
+    total,
+    add: (item) => context.dispatch({ type: 'add', item }),
+    remove: (id) => context.dispatch({ type: 'remove', id }),
+    setQty: (id, qty) => context.dispatch({ type: 'setQty', id, qty }),
+    clear: () => context.dispatch({ type: 'clear' }),
+  };
 }
