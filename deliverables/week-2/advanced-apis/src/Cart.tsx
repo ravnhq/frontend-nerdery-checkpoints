@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { useCart } from './CartContext'
 
 // Sample products the demo can add to the cart. Integer prices keep the
@@ -9,9 +10,9 @@ const SAMPLE_PRODUCTS = [
 
 export function Cart() {
   const { state, total, add, remove, setQty, clear } = useCart()
-
+  const sectionRef = useRef<HTMLElement>(null)
   return (
-    <section aria-label="Shopping cart">
+    <section aria-label="Shopping cart" ref={sectionRef} tabIndex={-1}>
       <h2>Cart</h2>
 
       <div>
@@ -40,7 +41,11 @@ export function Cart() {
                   onChange={(e) => setQty(item.id, Number(e.target.value))}
                 />
               </label>
-              <button type="button" onClick={() => remove(item.id)}>
+              <button type="button"
+                onClick={() => {
+                  remove(item.id)
+                  sectionRef.current?.focus()
+                }} >
                 Remove {item.name}
               </button>
             </li>
@@ -50,7 +55,10 @@ export function Cart() {
 
       <p data-testid="cart-total">Total: ${total}</p>
 
-      <button type="button" onClick={clear}>
+      <button type="button" onClick={() => {
+        clear()
+        sectionRef.current?.focus()
+      }}>
         Clear cart
       </button>
     </section>
