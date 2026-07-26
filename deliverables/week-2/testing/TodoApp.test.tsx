@@ -33,11 +33,20 @@ describe('TodoApp', () => {
     expect(screen.getByLabelText(/new todo/i)).toHaveValue('')
   })
 
+  it('ignores empty / whitespace-only input', async () => {
+    const user = userEvent.setup()
+    render(<TodoApp />)
+
+    await user.click(screen.getByRole('button', { name: /add/i }))
+    await addTodo(user, '   ')
+
+    expect(screen.queryByRole('listitem')).not.toBeInTheDocument()
+  })
+
   // Replace each placeholder below with a real test.
   // Tip: `const user = userEvent.setup()` then `await user.type(...)` /
   // `await user.click(...)`. Query by role/label, assert on what the user sees.
 
-  it.todo('ignores empty / whitespace-only input')
   it.todo('toggles a todo completed via its checkbox')
   it.todo('deletes a todo via its Delete button')
   it.todo('Active filter shows only not-completed todos')
