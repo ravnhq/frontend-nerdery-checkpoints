@@ -66,12 +66,49 @@ describe('TodoApp', () => {
     expect(screen.queryByText('Buy milk')).not.toBeInTheDocument()
   })
 
+  it('Active filter shows only not-completed todos', async () => {
+    const user = userEvent.setup()
+    render(<TodoApp />)
+    await addTodo(user, 'Buy milk')
+    await addTodo(user, 'Walk dog')
+    await user.click(screen.getByRole('checkbox', { name: 'Buy milk' }))
+
+    await user.click(screen.getByRole('button', { name: /^active$/i }))
+
+    expect(screen.queryByText('Buy milk')).not.toBeInTheDocument()
+    expect(screen.getByText('Walk dog')).toBeInTheDocument()
+  })
+
+  it('Completed filter shows only completed todos', async () => {
+    const user = userEvent.setup()
+    render(<TodoApp />)
+    await addTodo(user, 'Buy milk')
+    await addTodo(user, 'Walk dog')
+    await user.click(screen.getByRole('checkbox', { name: 'Buy milk' }))
+
+    await user.click(screen.getByRole('button', { name: /^completed$/i }))
+
+    expect(screen.getByText('Buy milk')).toBeInTheDocument()
+    expect(screen.queryByText('Walk dog')).not.toBeInTheDocument()
+  })
+
+  it('All filter shows every todo again', async () => {
+    const user = userEvent.setup()
+    render(<TodoApp />)
+    await addTodo(user, 'Buy milk')
+    await addTodo(user, 'Walk dog')
+    await user.click(screen.getByRole('checkbox', { name: 'Buy milk' }))
+    await user.click(screen.getByRole('button', { name: /^completed$/i }))
+
+    await user.click(screen.getByRole('button', { name: /^all$/i }))
+
+    expect(screen.getByText('Buy milk')).toBeInTheDocument()
+    expect(screen.getByText('Walk dog')).toBeInTheDocument()
+  })
+
   // Replace each placeholder below with a real test.
   // Tip: `const user = userEvent.setup()` then `await user.type(...)` /
   // `await user.click(...)`. Query by role/label, assert on what the user sees.
 
-  it.todo('Active filter shows only not-completed todos')
-  it.todo('Completed filter shows only completed todos')
-  it.todo('All filter shows every todo again')
   it.todo('shows the count of active todos as "{n} left"')
 })
