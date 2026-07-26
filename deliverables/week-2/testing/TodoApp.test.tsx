@@ -56,11 +56,20 @@ describe('TodoApp', () => {
     expect(checkbox).not.toBeChecked()
   })
 
+  it('deletes a todo via its Delete button', async () => {
+    const user = userEvent.setup()
+    render(<TodoApp />)
+    await addTodo(user, 'Buy milk')
+
+    await user.click(screen.getByRole('button', { name: /delete buy milk/i }))
+
+    expect(screen.queryByText('Buy milk')).not.toBeInTheDocument()
+  })
+
   // Replace each placeholder below with a real test.
   // Tip: `const user = userEvent.setup()` then `await user.type(...)` /
   // `await user.click(...)`. Query by role/label, assert on what the user sees.
 
-  it.todo('deletes a todo via its Delete button')
   it.todo('Active filter shows only not-completed todos')
   it.todo('Completed filter shows only completed todos')
   it.todo('All filter shows every todo again')
