@@ -106,9 +106,17 @@ describe('TodoApp', () => {
     expect(screen.getByText('Walk dog')).toBeInTheDocument()
   })
 
-  // Replace each placeholder below with a real test.
-  // Tip: `const user = userEvent.setup()` then `await user.type(...)` /
-  // `await user.click(...)`. Query by role/label, assert on what the user sees.
+  it('shows the count of active todos as "{n} left"', async () => {
+    const user = userEvent.setup()
+    render(<TodoApp />)
 
-  it.todo('shows the count of active todos as "{n} left"')
+    expect(screen.getByText('0 left')).toBeInTheDocument()
+
+    await addTodo(user, 'Buy milk')
+    await addTodo(user, 'Walk dog')
+    expect(screen.getByText('2 left')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('checkbox', { name: 'Buy milk' }))
+    expect(screen.getByText('1 left')).toBeInTheDocument()
+  })
 })
