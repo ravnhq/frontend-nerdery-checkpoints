@@ -1,0 +1,70 @@
+@import './cart-tokens.css';
+
+.cart-demo {
+  color-scheme: light dark;
+  min-height: 100vh;
+  padding-block: var(--cart-space-xl);
+  padding-inline: clamp(1rem, 0.4rem + 2.6vw, 3.5rem);
+  background: var(--cart-paper);
+  color: var(--cart-ink);
+  font-family: var(--cart-sans);
+}
+
+.cart-demo__inner {
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+.cart-demo__masthead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--cart-space-md);
+  margin-bottom: var(--cart-space-xl);
+  padding-bottom: var(--cart-space-sm);
+  border-bottom: 4px solid var(--cart-ink);
+}
+
+.cart-demo__title {
+  margin: 0;
+  font-size: var(--cart-text-title);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.cart-demo__toggle {
+  flex: none;
+  padding: var(--cart-space-xs) var(--cart-space-md);
+  border: 0;
+  background: var(--cart-ink);
+  color: var(--cart-paper);
+  font-family: inherit;
+  font-size: var(--cart-text-label);
+  font-weight: 700;
+  letter-spacing: var(--cart-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--cart-duration) var(--cart-ease),
+    transform var(--cart-duration) var(--cart-ease);
+}
+
+.cart-demo__toggle:hover {
+  background: var(--cart-accent);
+}
+
+.cart-demo__toggle:active {
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-demo__toggle {
+    transition: none;
+  }
+
+  .cart-demo__toggle:active {
+    transform: none;
+  }
+}

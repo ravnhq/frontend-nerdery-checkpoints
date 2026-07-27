@@ -1,0 +1,215 @@
+@import './cart-tokens.css';
+
+.cart {
+  font-family: var(--cart-sans);
+  color: var(--cart-ink);
+}
+
+.cart__heading {
+  margin: 0 0 var(--cart-space-lg);
+  padding-bottom: var(--cart-space-sm);
+  border-bottom: 2px solid var(--cart-ink);
+  font-size: var(--cart-text-label);
+  font-weight: 700;
+  letter-spacing: var(--cart-track-label);
+  text-transform: uppercase;
+}
+
+.cart__products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cart-space-xs);
+  margin-bottom: var(--cart-space-lg);
+}
+
+.cart__add {
+  padding: var(--cart-space-xs) var(--cart-space-md);
+  border: 0;
+  background: var(--cart-ink);
+  color: var(--cart-paper);
+  font-family: inherit;
+  font-size: var(--cart-text-label);
+  font-weight: 700;
+  letter-spacing: var(--cart-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--cart-duration) var(--cart-ease),
+    transform var(--cart-duration) var(--cart-ease);
+}
+
+.cart__add:hover {
+  background: var(--cart-accent);
+}
+
+.cart__add:active {
+  transform: translateY(1px);
+}
+
+/* Empty state gets the same rule-work as a populated list, so the layout
+   holds its shape instead of collapsing to a stray line of text. */
+.cart__empty {
+  margin: 0;
+  padding: var(--cart-space-xl) var(--cart-space-md);
+  border-top: 1px solid var(--cart-rule);
+  border-bottom: 1px solid var(--cart-rule);
+  color: var(--cart-muted);
+  font-size: var(--cart-text-label);
+  font-weight: 600;
+  letter-spacing: var(--cart-track-label);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.cart__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cart__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(6rem, 1fr) 1rem minmax(3rem, auto) max-content max-content;
+  align-items: center;
+  gap: var(--cart-space-sm);
+  padding: var(--cart-space-sm) 0;
+  border-top: 1px solid var(--cart-rule);
+}
+
+.cart__row:last-child {
+  border-bottom: 1px solid var(--cart-rule);
+}
+
+/* The accent bar scales in on hover/focus. transform only, so it never
+   touches layout. */
+.cart__row::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: -0.75rem;
+  width: 2px;
+  background: var(--cart-accent);
+  transform: scaleY(0);
+  transform-origin: center top;
+  transition: transform var(--cart-duration) var(--cart-ease);
+}
+
+.cart__row:hover::before,
+.cart__row:focus-within::before {
+  transform: scaleY(1);
+}
+
+.cart__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--cart-text-body);
+}
+
+.cart__sep {
+  color: var(--cart-rule);
+}
+
+.cart__price {
+  color: var(--cart-muted);
+  font-size: var(--cart-text-body);
+  font-variant-numeric: tabular-nums;
+}
+
+.cart__stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cart-space-2xs);
+}
+
+.cart__step {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--cart-rule);
+  background: transparent;
+  color: var(--cart-ink);
+  font-family: inherit;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color var(--cart-duration) var(--cart-ease),
+    border-color var(--cart-duration) var(--cart-ease);
+}
+
+.cart__step:hover {
+  border-color: var(--cart-accent);
+  background: var(--cart-accent-soft);
+}
+
+.cart__qty {
+  display: inline-block;
+  min-width: 1.5ch;
+  text-align: center;
+  font-size: var(--cart-text-body);
+  font-variant-numeric: tabular-nums;
+}
+
+.cart__remove {
+  white-space: nowrap;
+  padding: var(--cart-space-2xs) var(--cart-space-xs);
+  border: 0;
+  background: transparent;
+  color: var(--cart-muted);
+  font-family: inherit;
+  font-size: var(--cart-text-label);
+  font-weight: 700;
+  letter-spacing: var(--cart-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--cart-duration) var(--cart-ease);
+}
+
+.cart__remove:hover {
+  color: var(--cart-danger);
+}
+
+.cart__total {
+  margin: var(--cart-space-lg) 0 0;
+  padding-top: var(--cart-space-sm);
+  border-top: 2px solid var(--cart-ink);
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.cart__clear {
+  margin-top: var(--cart-space-md);
+  padding: var(--cart-space-xs) var(--cart-space-lg);
+  border: 1px solid var(--cart-rule);
+  background: transparent;
+  color: var(--cart-ink);
+  font-family: inherit;
+  font-size: var(--cart-text-label);
+  font-weight: 700;
+  letter-spacing: var(--cart-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--cart-duration) var(--cart-ease),
+    color var(--cart-duration) var(--cart-ease);
+}
+
+.cart__clear:hover {
+  background: var(--cart-ink);
+  color: var(--cart-paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart__add,
+  .cart__row::before,
+  .cart__step,
+  .cart__remove,
+  .cart__clear {
+    transition: none;
+  }
+
+  .cart__add:active {
+    transform: none;
+  }
+}

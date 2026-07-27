@@ -1,0 +1,72 @@
+/*
+ * Shopping cart — same editorial system as contact-list, mapped onto its own
+ * token prefix.
+ *
+ * Tokens are prefixed `--cart-*` deliberately: the dev server is a SPA and
+ * Vite keeps every visited deliverable's CSS injected, so bare names like
+ * `--color-bg` would collide with other deliverables' tokens.
+ */
+
+:root {
+  --cart-paper: oklch(98.6% 0.002 264);
+  --cart-raised: oklch(100% 0 0);
+  --cart-ink: oklch(22% 0.015 264);
+  --cart-muted: oklch(50% 0.015 264);
+  --cart-rule: oklch(89% 0.005 264);
+  --cart-accent: oklch(50% 0.19 256);
+  --cart-accent-soft: oklch(95% 0.03 256);
+  --cart-danger: oklch(51% 0.2 27);
+  --cart-danger-soft: oklch(96% 0.025 27);
+
+  --cart-sans: 'Helvetica Neue', Helvetica, Inter, system-ui, Arial, sans-serif;
+
+  --cart-text-title: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --cart-text-body: 0.875rem;
+  --cart-text-label: 0.6875rem;
+
+  --cart-space-2xs: 0.25rem;
+  --cart-space-xs: 0.5rem;
+  --cart-space-sm: 0.75rem;
+  --cart-space-md: 1.25rem;
+  --cart-space-lg: 2rem;
+  --cart-space-xl: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+
+  --cart-track-label: 0.14em;
+  --cart-duration: 140ms;
+  --cart-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Theming follows the house convention: `[data-theme]` on the root element
+   drives the palette. Nothing on this route sets it — the provider lives in
+   week-1/styling — so honour the OS preference until something does. */
+[data-theme='dark'] {
+  --cart-paper: oklch(17% 0.014 264);
+  --cart-raised: oklch(21% 0.016 264);
+  --cart-ink: oklch(95% 0.004 264);
+  --cart-muted: oklch(68% 0.014 264);
+  --cart-rule: oklch(30% 0.014 264);
+  --cart-accent: oklch(72% 0.15 256);
+  --cart-accent-soft: oklch(28% 0.06 256);
+  --cart-danger: oklch(70% 0.16 25);
+  --cart-danger-soft: oklch(28% 0.07 25);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --cart-paper: oklch(17% 0.014 264);
+    --cart-raised: oklch(21% 0.016 264);
+    --cart-ink: oklch(95% 0.004 264);
+    --cart-muted: oklch(68% 0.014 264);
+    --cart-rule: oklch(30% 0.014 264);
+    --cart-accent: oklch(72% 0.15 256);
+    --cart-accent-soft: oklch(28% 0.06 256);
+    --cart-danger: oklch(70% 0.16 25);
+    --cart-danger-soft: oklch(28% 0.07 25);
+  }
+}
+
+.cart-demo :focus-visible {
+  outline: 2px solid var(--cart-accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
