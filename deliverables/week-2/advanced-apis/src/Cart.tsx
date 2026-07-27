@@ -1,4 +1,6 @@
+import { BorderBeam } from 'border-beam'
 import { useCart } from './CartContext'
+import './Cart.css'
 
 // Sample products the demo can add to the cart. Integer prices keep the
 // displayed total easy to read and assert against.
@@ -11,6 +13,13 @@ export function Cart() {
   const { state, total, add, remove, setQty, clear } = useCart()
 
   return (
+    <BorderBeam
+      size="md"
+      colorVariant="ocean"
+      theme="dark"
+      duration={3}
+      strength={0.8}
+    >
     <section aria-label="Shopping cart">
       <h2>Cart</h2>
 
@@ -54,5 +63,6 @@ export function Cart() {
         Clear cart
       </button>
     </section>
+    </BorderBeam>
   )
 }

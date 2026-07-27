@@ -1,0 +1,283 @@
+body:has(section[aria-label="Shopping cart"]) {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(37, 99, 235, 0.2),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 85% 90%,
+      rgba(147, 51, 234, 0.16),
+      transparent 35%
+    ),
+    linear-gradient(145deg, #020617, #0f172a);
+  color: #f8fafc;
+  background-attachment: fixed;
+}
+
+#root:has(section[aria-label="Shopping cart"]) {
+  min-height: 100vh;
+}
+section[aria-label="Shopping cart"] {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 28px;
+  border: 1px solid rgba(96, 165, 250, 0.28);
+  border-radius: 18px;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(37, 99, 235, 0.22),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(147, 51, 234, 0.16),
+      transparent 35%
+    ),
+    linear-gradient(145deg, #111827, #080d19);
+  color: #f8fafc;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+section[aria-label="Shopping cart"] h2 {
+  margin: 0 0 22px;
+  color: #ffffff;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  letter-spacing: -0.04em;
+  text-shadow: 0 0 24px rgba(96, 165, 250, 0.55);
+}
+
+section[aria-label="Shopping cart"] > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+section[aria-label="Shopping cart"] button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 10px 16px;
+  border: 1px solid rgba(96, 165, 250, 0.55);
+  border-radius: 10px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.95),
+      rgba(124, 58, 237, 0.95)
+    );
+  color: #ffffff;
+  font: inherit;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow:
+    0 0 12px rgba(59, 130, 246, 0.3),
+    0 8px 24px rgba(37, 99, 235, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+section[aria-label="Shopping cart"] button::before {
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  z-index: -1;
+  width: 45%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  transform: rotate(20deg);
+  transition: left 500ms ease;
+  content: "";
+}
+
+section[aria-label="Shopping cart"] button:hover {
+  border-color: rgba(191, 219, 254, 0.9);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 22px rgba(96, 165, 250, 0.6),
+    0 10px 30px rgba(124, 58, 237, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+section[aria-label="Shopping cart"] button:hover::before {
+  left: 135%;
+}
+
+section[aria-label="Shopping cart"] button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+section[aria-label="Shopping cart"] button:focus-visible {
+  outline: 3px solid rgba(147, 197, 253, 0.9);
+  outline-offset: 4px;
+}
+
+section[aria-label="Shopping cart"] > p:not([data-testid]) {
+  padding: 18px;
+  border: 1px dashed rgba(148, 163, 184, 0.35);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.55);
+  color: #94a3b8;
+  text-align: center;
+}
+
+section[aria-label="Shopping cart"] ul {
+  display: grid;
+  gap: 13px;
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+}
+
+section[aria-label="Shopping cart"] li {
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 15px;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 12px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(30, 41, 59, 0.92),
+      rgba(15, 23, 42, 0.92)
+    );
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+section[aria-label="Shopping cart"] li:hover {
+  border-color: rgba(96, 165, 250, 0.55);
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.3),
+    0 0 18px rgba(37, 99, 235, 0.14);
+}
+
+section[aria-label="Shopping cart"] li > span {
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+section[aria-label="Shopping cart"] label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+section[aria-label="Shopping cart"] input {
+  box-sizing: border-box;
+  width: 58px;
+  padding: 8px;
+  border: 1px solid rgba(96, 165, 250, 0.4);
+  border-radius: 8px;
+  outline: none;
+  background: rgba(2, 6, 23, 0.75);
+  color: #f8fafc;
+  font: inherit;
+  text-align: center;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+section[aria-label="Shopping cart"] input:focus {
+  border-color: #60a5fa;
+  box-shadow:
+    0 0 0 3px rgba(59, 130, 246, 0.18),
+    0 0 16px rgba(59, 130, 246, 0.3);
+}
+
+section[aria-label="Shopping cart"] li button {
+  border-color: rgba(248, 113, 113, 0.45);
+  background: linear-gradient(135deg, #dc2626, #be123c);
+  box-shadow:
+    0 0 12px rgba(239, 68, 68, 0.22),
+    0 8px 20px rgba(190, 18, 60, 0.18);
+}
+
+section[aria-label="Shopping cart"] li button:hover {
+  border-color: rgba(254, 202, 202, 0.85);
+  box-shadow:
+    0 0 22px rgba(248, 113, 113, 0.48),
+    0 10px 25px rgba(190, 18, 60, 0.28);
+}
+
+section[aria-label="Shopping cart"] [data-testid="cart-total"] {
+  margin: 22px 0;
+  padding: 16px 18px;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: 12px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(6, 78, 59, 0.3),
+      rgba(15, 23, 42, 0.65)
+    );
+  color: #6ee7b7;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 16px rgba(52, 211, 153, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+section[aria-label="Shopping cart"] > button:last-child {
+  border-color: rgba(244, 114, 182, 0.5);
+  background: linear-gradient(135deg, #9333ea, #db2777);
+  box-shadow:
+    0 0 14px rgba(219, 39, 119, 0.25),
+    0 8px 24px rgba(147, 51, 234, 0.22);
+}
+
+@media (max-width: 640px) {
+  section[aria-label="Shopping cart"] {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  section[aria-label="Shopping cart"] li {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  section[aria-label="Shopping cart"] label {
+    justify-content: space-between;
+  }
+
+  section[aria-label="Shopping cart"] li button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  section[aria-label="Shopping cart"] button,
+  section[aria-label="Shopping cart"] li,
+  section[aria-label="Shopping cart"] button::before {
+    transition: none;
+  }
+}
