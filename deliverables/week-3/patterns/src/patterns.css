@@ -1,0 +1,76 @@
+/* Demo-only styling: the deliverable logic lives in Tabs.tsx. */
+.patterns-demo {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: #ffffff;
+  color: #1a1a2e;
+  font-family: system-ui, sans-serif;
+}
+
+.patterns-demo__panel {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border: 1px solid #e2e4ea;
+  border-radius: 8px;
+  background: #f4f5f7;
+}
+
+.patterns-demo h1 {
+  margin: 0 0 1rem;
+}
+
+.patterns-demo [role='tablist'] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.patterns-demo [role='tab'] {
+  min-height: 2.5rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #c8ccda;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1a1a2e;
+  cursor: pointer;
+  font: inherit;
+}
+
+.patterns-demo [role='tab']:hover {
+  border-color: #4c6fff;
+}
+
+.patterns-demo [role='tab']:focus,
+.patterns-demo [role='tab']:focus-visible {
+  outline: 3px solid #ffb020;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 176, 32, 0.24);
+}
+
+.patterns-demo [role='tab'][aria-selected='true'] {
+  border-color: #4c6fff;
+  background: #4c6fff;
+  color: #ffffff;
+}
+
+.patterns-demo [role='tabpanel'] {
+  padding: 0.85rem;
+  border: 1px solid #e2e4ea;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.patterns-demo [role='tabpanel'] p {
+  margin: 0;
+  color: #1a1a2e;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 560px) {
+  .patterns-demo [role='tab'] {
+    flex: 1 1 calc(50% - 0.75rem);
+  }
+}
