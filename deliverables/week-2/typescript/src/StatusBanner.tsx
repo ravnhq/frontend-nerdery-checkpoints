@@ -1,8 +1,21 @@
 import type { FormState } from './formState'
 import { describeState } from './formState'
+import './StatusBanner.css'
 
-// TODO: render describeState(state). When state.status === 'error', wrap the
-// text in an element with role="alert" so screen readers announce it.
 export function StatusBanner({ state }: { state: FormState }) {
-  return <div>{describeState(state)}</div>
+  const message = describeState(state)
+
+  if (state.status === 'error') {
+    return (
+      <div role="alert" className="status-banner" data-status={state.status}>
+        {message}
+      </div>
+    )
+  }
+
+  return (
+    <div className="status-banner" data-status={state.status}>
+      {message}
+    </div>
+  )
 }

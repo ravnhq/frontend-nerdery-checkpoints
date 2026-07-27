@@ -1,6 +1,9 @@
-import { useState } from 'react'
 import type { FormState } from './formState'
 import { StatusBanner } from './StatusBanner'
+import { useLocalStorageState } from './useLocalStorageState'
+import { ThemeProvider } from './ThemeProvider'
+import { ThemeToggle } from './ThemeToggle'
+import './index.css'
 
 // Runnable demo shown in the dev server: cycle through every FormState variant
 // and see how StatusBanner reacts.
@@ -12,19 +15,31 @@ const STATES: FormState[] = [
 ]
 
 export default function Demo() {
-  const [state, setState] = useState<FormState>(STATES[0])
+  const [state, setState] = useLocalStorageState<FormState>('form-status-state', STATES[0])
 
   return (
-    <main style={{ fontFamily: 'system-ui', maxWidth: 640, margin: '1rem auto', padding: '0 1rem' }}>
-      <h1>Form status</h1>
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-        {STATES.map((next) => (
-          <button key={next.status} onClick={() => setState(next)}>
-            {next.status}
-          </button>
-        ))}
-      </div>
-      <StatusBanner state={state} />
-    </main>
+    <ThemeProvider>
+      <main className="status-demo">
+        <div className="status-demo__inner">
+          <header className="status-demo__masthead">
+            <h1 className="status-demo__title">Form status</h1>
+            <ThemeToggle />
+          </header>
+          <div className="status-demo__controls">
+            {STATES.map((next) => (
+              <button
+                key={next.status}
+                type="button"
+                className="status-demo__control"
+                onClick={() => setState(next)}
+              >
+                {next.status}
+              </button>
+            ))}
+          </div>
+          <StatusBanner state={state} />
+        </div>
+      </main>
+    </ThemeProvider>
   )
 }

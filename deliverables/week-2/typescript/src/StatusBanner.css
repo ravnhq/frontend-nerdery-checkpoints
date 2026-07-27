@@ -1,0 +1,52 @@
+@import './status.css';
+
+/*
+ * States read as rule-weight and color, not new hues — the system reserves
+ * colour for interaction/emphasis, so idle/submitting/success are
+ * differentiated by weight and border, and only `error` breaks into the
+ * danger palette already established for destructive/failure states.
+ */
+.status-banner {
+  margin: 0;
+  padding: var(--status-space-sm) var(--status-space-md);
+  border-inline-start: 2px solid var(--status-rule);
+  font-family: var(--status-sans);
+  font-size: var(--status-text-body);
+  color: var(--status-muted);
+  transition: border-color var(--status-duration) var(--status-ease);
+}
+
+.status-banner[data-status='submitting'] {
+  border-inline-start-color: var(--status-accent);
+  color: var(--status-ink);
+  animation: status-banner-pulse calc(var(--status-duration) * 6) var(--status-ease) infinite;
+}
+
+.status-banner[data-status='success'] {
+  border-inline-start: 4px solid var(--status-ink);
+  color: var(--status-ink);
+  font-weight: 700;
+}
+
+.status-banner[data-status='error'] {
+  border-inline-start-color: var(--status-danger);
+  background: var(--status-danger-soft);
+  color: var(--status-danger);
+}
+
+@keyframes status-banner-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-banner {
+    transition: none;
+    animation: none;
+  }
+}

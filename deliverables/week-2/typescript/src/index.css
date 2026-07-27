@@ -1,0 +1,99 @@
+@import './status.css';
+
+.status-demo {
+  color-scheme: light dark;
+  min-height: 100vh;
+  padding-block: var(--status-space-xl);
+  padding-inline: clamp(1rem, 0.4rem + 2.6vw, 3.5rem);
+  background: var(--status-paper);
+  color: var(--status-ink);
+  font-family: var(--status-sans);
+}
+
+.status-demo__inner {
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+.status-demo__masthead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--status-space-md);
+  margin-bottom: var(--status-space-xl);
+  padding-bottom: var(--status-space-sm);
+  border-bottom: 4px solid var(--status-ink);
+}
+
+.status-demo__toggle {
+  flex: none;
+  padding: var(--status-space-xs) var(--status-space-md);
+  border: 0;
+  background: var(--status-ink);
+  color: var(--status-paper);
+  font-family: inherit;
+  font-size: var(--status-text-label);
+  font-weight: 700;
+  letter-spacing: var(--status-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--status-duration) var(--status-ease),
+    transform var(--status-duration) var(--status-ease);
+}
+
+.status-demo__toggle:hover {
+  background: var(--status-accent);
+}
+
+.status-demo__toggle:active {
+  transform: translateY(1px);
+}
+
+.status-demo__title {
+  margin: 0;
+  font-size: var(--status-text-title);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.status-demo__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--status-space-xs);
+  margin-bottom: var(--status-space-lg);
+}
+
+.status-demo__control {
+  padding: var(--status-space-xs) var(--status-space-md);
+  border: 1px solid var(--status-rule);
+  background: transparent;
+  color: var(--status-ink);
+  font-family: inherit;
+  font-size: var(--status-text-label);
+  font-weight: 700;
+  letter-spacing: var(--status-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--status-duration) var(--status-ease),
+    color var(--status-duration) var(--status-ease);
+}
+
+.status-demo__control:hover {
+  background: var(--status-ink);
+  color: var(--status-paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-demo__control,
+  .status-demo__toggle {
+    transition: none;
+  }
+
+  .status-demo__toggle:active {
+    transform: none;
+  }
+}
