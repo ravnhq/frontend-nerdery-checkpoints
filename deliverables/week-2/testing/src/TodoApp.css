@@ -1,0 +1,224 @@
+@import './todo.css';
+
+.todo {
+  font-family: var(--todo-sans);
+  color: var(--todo-ink);
+}
+
+.todo__heading {
+  margin: 0 0 var(--todo-space-lg);
+  padding-bottom: var(--todo-space-sm);
+  border-bottom: 2px solid var(--todo-ink);
+  font-size: var(--todo-text-label);
+  font-weight: 700;
+  letter-spacing: var(--todo-track-label);
+  text-transform: uppercase;
+}
+
+.todo__form {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  column-gap: var(--todo-space-sm);
+  row-gap: var(--todo-space-2xs);
+  margin-bottom: var(--todo-space-lg);
+}
+
+.todo__label {
+  grid-column: 1 / -1;
+  font-size: var(--todo-text-label);
+  font-weight: 700;
+  letter-spacing: var(--todo-track-label);
+  text-transform: uppercase;
+  color: var(--todo-muted);
+}
+
+.todo__input {
+  grid-column: 1;
+  padding: var(--todo-space-xs) 0;
+  border: 0;
+  border-bottom: 1px solid var(--todo-rule);
+  background: transparent;
+  color: var(--todo-ink);
+  font-family: inherit;
+  font-size: var(--todo-text-body);
+  transition: border-color var(--todo-duration) var(--todo-ease);
+}
+
+.todo__input:hover {
+  border-bottom-color: var(--todo-muted);
+}
+
+.todo__input:focus-visible {
+  border-bottom-color: var(--todo-accent);
+}
+
+.todo__submit {
+  grid-column: 2;
+  align-self: end;
+  padding: var(--todo-space-xs) var(--todo-space-lg);
+  border: 0;
+  background: var(--todo-ink);
+  color: var(--todo-paper);
+  font-family: inherit;
+  font-size: var(--todo-text-label);
+  font-weight: 700;
+  letter-spacing: var(--todo-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--todo-duration) var(--todo-ease),
+    transform var(--todo-duration) var(--todo-ease);
+}
+
+.todo__submit:hover {
+  background: var(--todo-accent);
+}
+
+.todo__submit:active {
+  transform: translateY(1px);
+}
+
+.todo__filters {
+  display: inline-flex;
+  margin-bottom: var(--todo-space-md);
+  border: 1px solid var(--todo-rule);
+}
+
+.todo__filter {
+  padding: var(--todo-space-xs) var(--todo-space-md);
+  border: 0;
+  border-left: 1px solid var(--todo-rule);
+  background: transparent;
+  color: var(--todo-ink);
+  font-family: inherit;
+  font-size: var(--todo-text-label);
+  font-weight: 700;
+  letter-spacing: var(--todo-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--todo-duration) var(--todo-ease),
+    color var(--todo-duration) var(--todo-ease);
+}
+
+.todo__filter:first-child {
+  border-left: 0;
+}
+
+.todo__filter:hover:not([aria-pressed='true']) {
+  background: var(--todo-accent-soft);
+}
+
+.todo__filter[aria-pressed='true'] {
+  background: var(--todo-ink);
+  color: var(--todo-paper);
+}
+
+.todo__count {
+  margin: 0 0 var(--todo-space-md);
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.todo__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--todo-space-sm);
+  padding: var(--todo-space-sm) 0;
+  border-top: 1px solid var(--todo-rule);
+}
+
+.todo__item:last-child {
+  border-bottom: 1px solid var(--todo-rule);
+}
+
+/* The accent bar scales in on hover/focus. transform only, so it never
+   touches layout. */
+.todo__item::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: -0.75rem;
+  width: 2px;
+  background: var(--todo-accent);
+  transform: scaleY(0);
+  transform-origin: center top;
+  transition: transform var(--todo-duration) var(--todo-ease);
+}
+
+.todo__item:hover::before,
+.todo__item:focus-within::before {
+  transform: scaleY(1);
+}
+
+.todo__checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--todo-space-xs);
+  min-width: 0;
+  cursor: pointer;
+}
+
+.todo__checkbox {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--todo-accent);
+  cursor: pointer;
+}
+
+.todo__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--todo-text-body);
+}
+
+/* Purely visual: a completed todo reads as struck-through without any extra
+   markup or attribute — the checkbox's own :checked state drives it. */
+.todo__checkbox-label:has(.todo__checkbox:checked) .todo__text {
+  color: var(--todo-muted);
+  text-decoration: line-through;
+}
+
+.todo__delete {
+  flex: none;
+  padding: var(--todo-space-2xs) var(--todo-space-xs);
+  border: 0;
+  background: transparent;
+  color: var(--todo-muted);
+  font-family: inherit;
+  font-size: var(--todo-text-label);
+  font-weight: 700;
+  letter-spacing: var(--todo-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--todo-duration) var(--todo-ease);
+}
+
+.todo__delete:hover {
+  color: var(--todo-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .todo__input,
+  .todo__submit,
+  .todo__filter,
+  .todo__item::before,
+  .todo__delete {
+    transition: none;
+  }
+
+  .todo__submit:active {
+    transform: none;
+  }
+}

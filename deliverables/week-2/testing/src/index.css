@@ -1,0 +1,31 @@
+@import './todo.css';
+
+.todo-demo {
+  color-scheme: light dark;
+  min-height: 100vh;
+  padding-block: var(--todo-space-xl);
+  padding-inline: clamp(1rem, 0.4rem + 2.6vw, 3.5rem);
+  background: var(--todo-paper);
+  color: var(--todo-ink);
+  font-family: var(--todo-sans);
+}
+
+.todo-demo__inner {
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+.todo-demo__masthead {
+  margin-bottom: var(--todo-space-xl);
+  padding-bottom: var(--todo-space-sm);
+  border-bottom: 4px solid var(--todo-ink);
+}
+
+.todo-demo__title {
+  margin: 0;
+  font-size: var(--todo-text-title);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}

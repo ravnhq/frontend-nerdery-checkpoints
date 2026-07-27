@@ -1,0 +1,72 @@
+/*
+ * Todo app — same editorial system as contact-list, mapped onto its own
+ * token prefix.
+ *
+ * Tokens are prefixed `--todo-*` deliberately: the dev server is a SPA and
+ * Vite keeps every visited deliverable's CSS injected, so bare names like
+ * `--color-bg` would collide with other deliverables' tokens.
+ */
+
+:root {
+  --todo-paper: oklch(98.6% 0.002 264);
+  --todo-raised: oklch(100% 0 0);
+  --todo-ink: oklch(22% 0.015 264);
+  --todo-muted: oklch(50% 0.015 264);
+  --todo-rule: oklch(89% 0.005 264);
+  --todo-accent: oklch(50% 0.19 256);
+  --todo-accent-soft: oklch(95% 0.03 256);
+  --todo-danger: oklch(51% 0.2 27);
+  --todo-danger-soft: oklch(96% 0.025 27);
+
+  --todo-sans: 'Helvetica Neue', Helvetica, Inter, system-ui, Arial, sans-serif;
+
+  --todo-text-title: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --todo-text-body: 0.875rem;
+  --todo-text-label: 0.6875rem;
+
+  --todo-space-2xs: 0.25rem;
+  --todo-space-xs: 0.5rem;
+  --todo-space-sm: 0.75rem;
+  --todo-space-md: 1.25rem;
+  --todo-space-lg: 2rem;
+  --todo-space-xl: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+
+  --todo-track-label: 0.14em;
+  --todo-duration: 140ms;
+  --todo-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Theming follows the house convention: `[data-theme]` on the root element
+   drives the palette. Nothing on this route sets it — the provider lives in
+   week-1/styling — so honour the OS preference until something does. */
+[data-theme='dark'] {
+  --todo-paper: oklch(17% 0.014 264);
+  --todo-raised: oklch(21% 0.016 264);
+  --todo-ink: oklch(95% 0.004 264);
+  --todo-muted: oklch(68% 0.014 264);
+  --todo-rule: oklch(30% 0.014 264);
+  --todo-accent: oklch(72% 0.15 256);
+  --todo-accent-soft: oklch(28% 0.06 256);
+  --todo-danger: oklch(70% 0.16 25);
+  --todo-danger-soft: oklch(28% 0.07 25);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --todo-paper: oklch(17% 0.014 264);
+    --todo-raised: oklch(21% 0.016 264);
+    --todo-ink: oklch(95% 0.004 264);
+    --todo-muted: oklch(68% 0.014 264);
+    --todo-rule: oklch(30% 0.014 264);
+    --todo-accent: oklch(72% 0.15 256);
+    --todo-accent-soft: oklch(28% 0.06 256);
+    --todo-danger: oklch(70% 0.16 25);
+    --todo-danger-soft: oklch(28% 0.07 25);
+  }
+}
+
+.todo-demo :focus-visible {
+  outline: 2px solid var(--todo-accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
