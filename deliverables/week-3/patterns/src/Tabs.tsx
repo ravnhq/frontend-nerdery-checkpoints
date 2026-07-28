@@ -1,11 +1,5 @@
-import { createContext, useState, type ReactNode } from 'react'
+import { createContext, useContext, useState, type ReactNode } from 'react'
 
-// ---------------------------------------------------------------------------
-// STUB IMPLEMENTATION
-// Renders the sub-components flat with the correct roles so tests fail on the
-// behavioural assertions (one visible panel, aria-selected, switching) rather
-// than on import errors. Replace with the reference solution.
-// ---------------------------------------------------------------------------
 
 interface TabsContextValue {
   value: string
@@ -19,10 +13,16 @@ interface TabsProps {
   children: ReactNode
 }
 
+function useTabsContext() {
+  const context = useContext(TabsContext)
+  if (!context) {
+    throw new Error('Tabs compound components must be rendered inside a <Tabs> component.')
+  }
+  return context
+}
+
 function TabsRoot({ defaultValue, children }: TabsProps) {
-  const [value] = useState(defaultValue)
-  // STUB: activation is not wired up yet.
-  const setValue = (_next: string): void => {}
+  const [value, setValue] = useState(defaultValue)
   return (
     <TabsContext.Provider value={{ value, setValue }}>
       {children}
@@ -43,10 +43,10 @@ interface TabProps {
   children: ReactNode
 }
 
-function Tab({ value: _value, children }: TabProps) {
-  // STUB: never selected, click does nothing.
+function Tab({ value, children }: TabProps) {
+  const { value: activeValue, setValue } = useTabsContext()
   return (
-    <button type="button" role="tab" aria-selected={false}>
+    <button type="button" role="tab" aria-selected={activeValue === value} onClick={() => setValue(value)}>
       {children}
     </button>
   )
@@ -57,8 +57,11 @@ interface TabsPanelProps {
   children: ReactNode
 }
 
-function TabsPanel({ value: _value, children }: TabsPanelProps) {
-  // STUB: every panel is always rendered.
+function TabsPanel({ value, children }: TabsPanelProps) {
+  const { value: activeValue } = useTabsContext()
+  if (activeValue !== value) {
+    return null
+  }
   return <div role="tabpanel">{children}</div>
 }
 
