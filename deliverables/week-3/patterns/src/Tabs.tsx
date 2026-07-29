@@ -21,9 +21,8 @@ interface TabsProps {
 }
 
 function TabsRoot({ defaultValue, children }: TabsProps) {
-  const [value] = useState(defaultValue)
-  // STUB: activation is not wired up yet.
-  const setValue = (_next: string): void => {}
+  const [value, setValue] = useState(defaultValue)
+
   return (
     <TabsContext.Provider value={{ value, setValue }}>
       {children}
