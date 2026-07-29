@@ -16,5 +16,15 @@ export type FormState =
 //   return _exhaustive
 // so that adding a new union case fails to COMPILE until you handle it.
 export function describeState(_state: FormState): string {
-  return 'TODO'
+
+  switch (_state.status) {
+    case "idle": return "Ready"
+    case "submitting": return "Submitting… "
+    case "success": return `Saved #${_state.id}`
+    case "error": return _state.message
+    default: {
+      const _exhaustive: never = _state
+      return _exhaustive
+    }
+  }
 }
