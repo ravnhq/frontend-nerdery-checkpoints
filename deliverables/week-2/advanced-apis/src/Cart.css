@@ -1,0 +1,109 @@
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.controls > :last-child {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.add-button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1rem 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.subtitle {
+  font-weight: 500;
+}
+
+.empty {
+  font-style: italic;
+  color: var(--color-secondary);
+}
+
+.total {
+  display: flex;
+  background-color: #eff4ff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.total p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.total button {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--color-tertiary);
+  font-size: 0.9rem;
+}
+
+.total button:hover {
+  cursor: pointer;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: var(--color-secondary) 1px solid;
+  border-radius: 0.5rem;
+}
+
+.cart-item span {
+  font-weight: 500;
+  border-bottom: var(--color-secondary) 1px solid;
+  padding-bottom: 0.5rem;
+}
+
+.qty {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.qty label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.qty input {
+  width: 3rem;
+  font-size: 1rem;
+  border: var(--color-secondary) 1px solid;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.qty button {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--color-error);
+  cursor: pointer;
+}

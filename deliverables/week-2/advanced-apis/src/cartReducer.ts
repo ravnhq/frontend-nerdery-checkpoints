@@ -17,12 +17,68 @@ export type CartAction =
 
 export const initialCart: CartState = { items: [] }
 
-// STUB: returns state unchanged so behaviour tests fail (RED).
-export function cartReducer(state: CartState, _action: CartAction): CartState {
-  return state
+function handleAdd(
+  items: CartItem[],
+  item: { id: string; name: string; price: number },
+) {
+  return items.some((cartItem) => cartItem.id === item.id)
+    ? items.map((cartItem) =>
+        cartItem.id === item.id
+          ? { ...cartItem, qty: cartItem.qty + 1 }
+          : cartItem,
+      )
+    : [
+        ...items,
+        {
+          ...item,
+          qty: 1,
+        },
+      ]
 }
 
-// STUB: returns 0 so selectTotal test fails (RED).
-export function selectTotal(_state: CartState): number {
-  return 0
+function handleQty(items: CartItem[], id: string, qty: number) {
+  return qty > 0
+    ? items.map((cartItem) =>
+        cartItem.id === id ? { ...cartItem, qty: qty } : cartItem,
+      )
+    : items.filter((cartItem) => cartItem.id !== id)
+}
+
+export function cartReducer(state: CartState, action: CartAction): CartState {
+  switch (action.type) {
+    case 'add':
+      return {
+        ...state,
+        items: handleAdd(state.items, action.item),
+      }
+
+    case 'remove':
+      return {
+        ...state,
+        items: state.items.filter((cartItem) => cartItem.id !== action.id),
+      }
+
+    case 'setQty':
+      return {
+        ...state,
+        items: handleQty(state.items, action.id, action.qty),
+      }
+
+    case 'clear':
+      return {
+        ...state,
+        items: [],
+      }
+    default: {
+      const _e: never = action
+      return _e
+    }
+  }
+}
+
+export function selectTotal(state: CartState): number {
+  return state.items.reduce(
+    (accumulator, cartItem) => accumulator + cartItem.price * cartItem.qty,
+    0,
+  )
 }
