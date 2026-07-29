@@ -1,0 +1,22 @@
+:root {
+  --color-primary: #004ac6;
+  --color-secondary: #c3c6d7;
+  --color-tertiary: #434655;
+  --color-error: #ff4d4f;
+}
+
+.ts-title {
+  font-size: 2rem;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.ts-button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}

@@ -1,0 +1,15 @@
+.ts-status-banner {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: var(--color-tertiary);
+  font-weight: 400;
+}
+
+.ts-error-container {
+  margin-top: 1rem;
+}
+.ts-error-banner {
+  font-size: 1.5rem;
+  color: var(--color-error);
+  font-weight: 400;
+}
