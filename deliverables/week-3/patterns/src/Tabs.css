@@ -1,0 +1,19 @@
+.tabs-list {
+  display: flex;
+  gap: 1rem;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--color-primary);
+  color: white;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.tab[aria-selected="true"] {
+  background: var(--color-secondary);
+  color: var(--color-tertiary);
+  cursor: default;
+}
