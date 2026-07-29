@@ -1,16 +1,50 @@
-// STUB — replace with a real Suspense + Error Boundary implementation.
-//
-// Build the feature described in README.md:
-//   - a module-level promise cache created by calling fetchUsers() once,
-//   - an inner component that reads it with React 19's `use(promise)` hook and
-//     renders each user's name,
-//   - a <Suspense> boundary whose fallback shows "Loading…",
-//   - a class Error Boundary whose fallback shows an error message and a
-//     "Try again" button that clears the cache, refetches, and resets the
-//     boundary (e.g. by bumping a `key` to remount the subtree).
-//
-// This placeholder renders static text so the acceptance tests fail on
-// assertions (not on import/compile errors).
+import { Suspense, use, useState } from 'react'
+import { User, fetchUsers } from './api'
+import { ErrorBoundary } from './ErrorBoundary'
+import './UsersView.css'
+
+let usersCache: Promise<User[]> | undefined
+
+function getUsers(): Promise<User[]> {
+  const usersPromise = usersCache ?? fetchUsers()
+  usersCache = usersPromise
+  return usersPromise
+}
+
+function clearUsersCache(setKey: React.Dispatch<React.SetStateAction<number>>) {
+  usersCache = undefined
+  setKey((key) => key + 1)
+}
+
+function UsersList() {
+  const users = use(getUsers())
+
+  return (
+    <ul className="suspense-list">
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  )
+}
+
 export function UsersView() {
-  return <p>TODO: render users with Suspense and an error boundary</p>
+  const [key, setKey] = useState(0)
+
+  return (
+    <ErrorBoundary
+      fallback={
+        <div>
+          <p role="alert">Error loading users</p>
+          <button onClick={() => clearUsersCache(setKey)}>Try again</button>
+        </div>
+      }
+      key={key}
+    >
+      <h2 className="suspense-subtitle">Users</h2>
+      <Suspense fallback={<p className="suspense-loading">Loading…</p>}>
+        <UsersList></UsersList>
+      </Suspense>
+    </ErrorBoundary>
+  )
 }
