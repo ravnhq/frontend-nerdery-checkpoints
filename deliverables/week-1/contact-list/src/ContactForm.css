@@ -1,0 +1,51 @@
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid var(--color-secondary);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.contact-form-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.contact-form-input {
+  border: 1px solid var(--color-secondary);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+label .contact-form-label {
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+.contact-form-submit {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.email-and-role > label:last-child {
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .email-and-role {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .email-and-role > label:last-child {
+    margin-top: 0;
+  }
+}

@@ -1,0 +1,31 @@
+.searchable-contacts {
+  margin: 0 1rem;
+}
+
+.contact-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--color-primary);
+  font-weight: 400;
+}
+
+.search {
+  border: 1px solid var(--color-secondary);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.5rem;
+}
+
+.search:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.contacts {
+  margin-top: 3rem;
+}
+
+.add-contact {
+  margin-top: 3rem;
+}
