@@ -1,0 +1,27 @@
+.debounced-search {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid var(--color-secondary);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.debounced-search label {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+.debounced-search input {
+  border: 1px solid var(--color-secondary);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.debounced-search input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
