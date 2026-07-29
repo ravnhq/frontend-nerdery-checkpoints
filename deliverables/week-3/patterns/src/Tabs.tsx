@@ -64,8 +64,11 @@ interface TabsPanelProps {
   children: ReactNode
 }
 
-function TabsPanel({ value: _value, children }: TabsPanelProps) {
-  // STUB: every panel is always rendered.
+function TabsPanel({ value, children }: TabsPanelProps) {
+  const { value: selectedValue } = useTabsContext('Tabs.Panel')
+  if (selectedValue !== value) {
+    return null
+  }
   return <div role="tabpanel">{children}</div>
 }
 
