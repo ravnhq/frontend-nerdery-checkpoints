@@ -43,10 +43,17 @@ interface TabProps {
   children: ReactNode
 }
 
-function Tab({ value: _value, children }: TabProps) {
-  // STUB: never selected, click does nothing.
+function Tab({ value, children }: TabProps) {
+  
+  const { value: selectedValue, setValue } = useTabsContext('Tabs.Tab')
+
   return (
-    <button type="button" role="tab" aria-selected={false}>
+    <button 
+      type="button" 
+      role="tab" 
+      aria-selected={selectedValue === value} 
+      onClick={() => setValue(value)}
+    >
       {children}
     </button>
   )
