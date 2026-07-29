@@ -3,9 +3,18 @@ import { ThemeProvider } from './ThemeProvider'
 import { ThemeToggle } from './ThemeToggle'
 
 const cards = [
-  { title: 'Design tokens', body: 'Colors come from CSS variables, not hex literals.' },
-  { title: 'Runtime theming', body: 'Toggle light/dark without a reload; choice is persisted.' },
-  { title: 'Responsive layout', body: 'The grid reflows from 1 to 3 columns as the viewport grows.' },
+  {
+    title: 'Design tokens',
+    body: 'Colors come from CSS variables, not hex literals.',
+  },
+  {
+    title: 'Runtime theming',
+    body: 'Toggle light/dark without a reload; choice is persisted.',
+  },
+  {
+    title: 'Responsive layout',
+    body: 'The grid reflows from 1 to 3 columns as the viewport grows.',
+  },
 ]
 
 // Runnable demo shown in the dev server.
