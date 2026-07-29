@@ -1,49 +1,102 @@
-import React from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react'
 import { fetchUsers, type User } from './api'
 
-/**
- * STUB — intentionally wrong so the acceptance tests fail (RED).
- *
- * Replace this file with a real implementation:
- *  - `useUsers` must fetch ONCE and share/dedupe the result across every
- *    component under `AppStateProvider` (no duplicate in-flight requests).
- *  - `useSelectedUser` must expose a SINGLE, globally-shared selection so
- *    that sibling components read and write the same value.
- */
-
-// STUB: provider does nothing but render children — no shared cache, no
-// shared selection.
-export function AppStateProvider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+interface UsersState {
+  users: User[]
+  isLoading: boolean
 }
 
-// STUB (breaks dedupe): every component that calls this fires its own
-// `fetchUsers`, so N consumers produce N network calls instead of one.
-export function useUsers(): { users: User[]; isLoading: boolean } {
-  const [users, setUsers] = React.useState<User[]>([])
-  const [isLoading, setIsLoading] = React.useState(true)
+interface SelectionState {
+  selectedId: string | null
+  select: (id: string) => void
+}
 
-  React.useEffect(() => {
+const UsersContext = createContext<UsersState | null>(null)
+const SelectionContext = createContext<SelectionState | null>(null)
+
+let cachedUsers: User[] | null = null
+let usersRequest: Promise<User[]> | null = null
+
+// Keeps the user request shared across every consumer and provider remount.
+function loadUsers() {
+  if (cachedUsers) {
+    return Promise.resolve(cachedUsers)
+  }
+
+  if (!usersRequest) {
+    usersRequest = fetchUsers()
+      .then((result) => {
+        cachedUsers = result
+        return result
+      })
+      .finally(() => {
+        usersRequest = null
+      })
+  }
+
+  return usersRequest
+}
+
+// Centralizes the user list and the selected user so siblings share one state.
+export function AppStateProvider({ children }: { children: ReactNode }) {
+  const [users, setUsers] = useState<User[]>(() => cachedUsers ?? [])
+  const [isLoading, setIsLoading] = useState(() => cachedUsers === null)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+
+  useEffect(() => {
     let active = true
-    fetchUsers().then((result) => {
-      if (!active) return
-      setUsers(result)
-      setIsLoading(false)
+
+    loadUsers().then((result) => {
+      if (active) {
+        setUsers(result)
+        setIsLoading(false)
+      }
     })
+
     return () => {
       active = false
     }
   }, [])
 
-  return { users, isLoading }
+  const usersValue = useMemo(() => ({ users, isLoading }), [users, isLoading])
+  const selectionValue = useMemo(
+    () => ({ selectedId, select: setSelectedId }),
+    [selectedId],
+  )
+
+  return (
+    <UsersContext.Provider value={usersValue}>
+      <SelectionContext.Provider value={selectionValue}>
+        {children}
+      </SelectionContext.Provider>
+    </UsersContext.Provider>
+  )
 }
 
-// STUB (breaks sharing): selection lives in local component state, so each
-// consumer has its OWN selection and siblings never see each other's choice.
+// Fails fast when a consumer is rendered outside AppStateProvider.
+export function useUsers(): { users: User[]; isLoading: boolean } {
+  const context = useContext(UsersContext)
+  if (!context) {
+    throw new Error('useUsers must be used within AppStateProvider')
+  }
+  return context
+}
+
+// Exposes the shared selected user id and the single action that changes it.
 export function useSelectedUser(): {
   selectedId: string | null
   select: (id: string) => void
 } {
-  const [selectedId, setSelectedId] = React.useState<string | null>(null)
-  return { selectedId, select: setSelectedId }
+  const context = useContext(SelectionContext)
+  if (!context) {
+    throw new Error('useSelectedUser must be used within AppStateProvider')
+  }
+  return context
 }
