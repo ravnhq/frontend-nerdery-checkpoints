@@ -1,6 +1,17 @@
 import type { Contact } from './types'
 
-// TODO: render the contact's name, email and role.
 export function ContactCard({ contact }: { contact: Contact }) {
-  return <div>TODO: ContactCard for {contact.id}</div>
+
+
+  return (
+    <article className="contact-card">
+      <header className="contact-card__header">
+        <h2>{contact.name}</h2>
+      </header>
+      <section className="contact-card__details">
+        <p>{contact.email}</p>
+        <p>{contact.role}</p>
+      </section>
+    </article>
+  )
 }
