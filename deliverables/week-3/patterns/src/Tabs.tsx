@@ -1,11 +1,4 @@
-import { createContext, useState, type ReactNode } from 'react'
-
-// ---------------------------------------------------------------------------
-// STUB IMPLEMENTATION
-// Renders the sub-components flat with the correct roles so tests fail on the
-// behavioural assertions (one visible panel, aria-selected, switching) rather
-// than on import errors. Replace with the reference solution.
-// ---------------------------------------------------------------------------
+import { createContext, useContext, useState, type ReactNode } from 'react'
 
 interface TabsContextValue {
   value: string
@@ -13,6 +6,14 @@ interface TabsContextValue {
 }
 
 const TabsContext = createContext<TabsContextValue | null>(null)
+
+function useTabsContext(component: string): TabsContextValue {
+  const context = useContext(TabsContext)
+  if (context === null) {
+    throw new Error(`${component} must be rendered inside <Tabs>`)
+  }
+  return context
+}
 
 interface TabsProps {
   defaultValue: string
