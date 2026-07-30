@@ -1,16 +1,69 @@
-// STUB — replace with a real Suspense + Error Boundary implementation.
-//
-// Build the feature described in README.md:
-//   - a module-level promise cache created by calling fetchUsers() once,
-//   - an inner component that reads it with React 19's `use(promise)` hook and
-//     renders each user's name,
-//   - a <Suspense> boundary whose fallback shows "Loading…",
-//   - a class Error Boundary whose fallback shows an error message and a
-//     "Try again" button that clears the cache, refetches, and resets the
-//     boundary (e.g. by bumping a `key` to remount the subtree).
-//
-// This placeholder renders static text so the acceptance tests fail on
-// assertions (not on import/compile errors).
+import { Component, ReactNode, Suspense, use, useState } from "react"
+import { fetchUsers, User } from "./api"
+
+let userPromise: Promise<User[]> | null = null
+
+
+interface ErrorBoundaryProps {
+  children: ReactNode
+  onRetry: () => void
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean
+}
+
+class UserErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  state: ErrorBoundaryState = { hasError: false }
+
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div role="alert">
+          <p>Something went wrong while fetching users.</p>
+          <button onClick={this.props.onRetry}>Try Again</button>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
+
+function getUsersPromise(): Promise<User[]> {
+  if (!userPromise) {
+    userPromise = fetchUsers()
+  }
+  return userPromise
+}
+
+function UserList() {
+  const users = use(getUsersPromise())
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  )
+}
+
 export function UsersView() {
-  return <p>TODO: render users with Suspense and an error boundary</p>
+  const [retryCount, setRetryCount] = useState(0)
+
+  const handleRetry = () => {
+    userPromise = null
+    setRetryCount((prev) => prev + 1)
+  }
+
+  return (
+    <UserErrorBoundary key={retryCount} onRetry={handleRetry}>
+      <Suspense fallback={<div>Loading users...</div>}>
+        <UserList />
+      </Suspense>
+    </UserErrorBoundary>
+  )
 }
