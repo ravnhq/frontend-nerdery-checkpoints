@@ -1,4 +1,4 @@
-import { use } from 'react'
+import { Suspense, use } from 'react'
 import type { User } from './api'
 import { fetchUsers } from './api'
 
@@ -27,5 +27,9 @@ function UsersList() {
 }
 
 export function UsersView() {
-  return <p>TODO: render users with Suspense and an error boundary</p>
+  return (
+    <Suspense fallback={<p>Loading users…</p>}>
+      <UsersList />
+    </Suspense>
+  )
 }
