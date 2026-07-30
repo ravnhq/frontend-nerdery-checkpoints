@@ -1,0 +1,112 @@
+.demo {
+  --tabs-bg: #ffffff;
+  --tabs-surface: #f4f5f7;
+  --tabs-text: #1a1a2e;
+  --tabs-muted: #5a5a72;
+  --tabs-accent: #4c6fff;
+  --tabs-border: #e2e4ea;
+
+  --tabs-space-sm: 0.5rem;
+  --tabs-space-md: 1rem;
+  --tabs-space-lg: 1.5rem;
+  --tabs-radius: 8px;
+
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: var(--tabs-space-lg) var(--tabs-space-md);
+  font-family: system-ui, sans-serif;
+  color: var(--tabs-text);
+  background: var(--tabs-bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  .demo {
+    --tabs-bg: #12121c;
+    --tabs-surface: #1e1e2e;
+    --tabs-text: #f4f5f7;
+    --tabs-muted: #a0a0b8;
+    --tabs-accent: #7d94ff;
+    --tabs-border: #2c2c40;
+  }
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--tabs-space-lg);
+}
+
+.tablist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tabs-space-sm);
+  border-bottom: 1px solid var(--tabs-border);
+}
+
+.tab {
+  appearance: none;
+  font: inherit;
+  cursor: pointer;
+  padding: var(--tabs-space-sm) var(--tabs-space-md);
+  color: var(--tabs-muted);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: var(--tabs-radius) var(--tabs-radius) 0 0;
+  margin-bottom: -1px;
+  transition:
+    color 120ms ease,
+    background-color 120ms ease,
+    border-color 120ms ease;
+}
+
+.tab:hover {
+  color: var(--tabs-text);
+  background: var(--tabs-surface);
+}
+
+.tab[aria-selected='true'] {
+  color: var(--tabs-accent);
+  border-bottom-color: var(--tabs-accent);
+  font-weight: 600;
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--tabs-accent);
+  outline-offset: 2px;
+}
+
+.panel {
+  padding: var(--tabs-space-lg) var(--tabs-space-md);
+  border: 1px solid var(--tabs-border);
+  border-top: 0;
+  border-radius: 0 0 var(--tabs-radius) var(--tabs-radius);
+  background: var(--tabs-surface);
+  animation: panel-in 160ms ease-out;
+}
+
+.panel p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--tabs-muted);
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab,
+  .panel {
+    transition: none;
+    animation: none;
+  }
+}
