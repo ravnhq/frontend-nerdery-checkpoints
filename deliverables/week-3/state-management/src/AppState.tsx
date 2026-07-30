@@ -1,6 +1,10 @@
 import React from 'react'
+import { createContext, useState, useContext } from 'react'
 import { fetchUsers, type User } from './api'
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 
+type SelectedUserContextValue = { selectedId: string | null; select: (id: string) => void }
+const context = createContext<SelectedUserContextValue | null>(null)
 /**
  * STUB — intentionally wrong so the acceptance tests fail (RED).
  *
@@ -14,28 +18,20 @@ import { fetchUsers, type User } from './api'
 // STUB: provider does nothing but render children — no shared cache, no
 // shared selection.
 export function AppStateProvider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [queryClient] = useState(() => new QueryClient())
+  return <context.Provider value={{ selectedId, select: setSelectedId }}>
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  </context.Provider >
 }
 
 // STUB (breaks dedupe): every component that calls this fires its own
 // `fetchUsers`, so N consumers produce N network calls instead of one.
 export function useUsers(): { users: User[]; isLoading: boolean } {
-  const [users, setUsers] = React.useState<User[]>([])
-  const [isLoading, setIsLoading] = React.useState(true)
-
-  React.useEffect(() => {
-    let active = true
-    fetchUsers().then((result) => {
-      if (!active) return
-      setUsers(result)
-      setIsLoading(false)
-    })
-    return () => {
-      active = false
-    }
-  }, [])
-
-  return { users, isLoading }
+  const { data, isLoading } = useQuery({ queryKey: ['users'], queryFn: fetchUsers, staleTime: 300000 })
+  return { users: data ?? [], isLoading }
 }
 
 // STUB (breaks sharing): selection lives in local component state, so each
@@ -44,6 +40,7 @@ export function useSelectedUser(): {
   selectedId: string | null
   select: (id: string) => void
 } {
-  const [selectedId, setSelectedId] = React.useState<string | null>(null)
-  return { selectedId, select: setSelectedId }
+  const ctx = useContext(context)
+  if (ctx === null) throw Error('must be within AppState Provider')
+  return ctx
 }
