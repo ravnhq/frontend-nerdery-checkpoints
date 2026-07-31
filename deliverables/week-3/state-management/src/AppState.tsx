@@ -1,49 +1,52 @@
 import React from 'react'
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query'
 import { fetchUsers, type User } from './api'
 
-/**
- * STUB — intentionally wrong so the acceptance tests fail (RED).
- *
- * Replace this file with a real implementation:
- *  - `useUsers` must fetch ONCE and share/dedupe the result across every
- *    component under `AppStateProvider` (no duplicate in-flight requests).
- *  - `useSelectedUser` must expose a SINGLE, globally-shared selection so
- *    that sibling components read and write the same value.
- */
+const USERS_QUERY_KEY = ['users']
 
-// STUB: provider does nothing but render children — no shared cache, no
-// shared selection.
+const SelectedUserContext = React.createContext<{
+  selectedId: string | null
+  select: (id: string) => void
+} | null>(null)
+
 export function AppStateProvider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  const [queryClient] = React.useState(() => new QueryClient())
+  const [selectedId, setSelectedId] = React.useState<string | null>(null)
+
+  const value = React.useMemo(
+    () => ({ selectedId, select: setSelectedId }),
+    [selectedId],
+  )
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <SelectedUserContext.Provider value={value}>
+        {children}
+      </SelectedUserContext.Provider>
+    </QueryClientProvider>
+  )
 }
 
-// STUB (breaks dedupe): every component that calls this fires its own
-// `fetchUsers`, so N consumers produce N network calls instead of one.
 export function useUsers(): { users: User[]; isLoading: boolean } {
-  const [users, setUsers] = React.useState<User[]>([])
-  const [isLoading, setIsLoading] = React.useState(true)
+  const { data, isLoading } = useQuery({
+    queryKey: USERS_QUERY_KEY,
+    queryFn: fetchUsers,
+  })
 
-  React.useEffect(() => {
-    let active = true
-    fetchUsers().then((result) => {
-      if (!active) return
-      setUsers(result)
-      setIsLoading(false)
-    })
-    return () => {
-      active = false
-    }
-  }, [])
-
-  return { users, isLoading }
+  return { users: data ?? [], isLoading }
 }
 
-// STUB (breaks sharing): selection lives in local component state, so each
-// consumer has its OWN selection and siblings never see each other's choice.
 export function useSelectedUser(): {
   selectedId: string | null
   select: (id: string) => void
 } {
-  const [selectedId, setSelectedId] = React.useState<string | null>(null)
-  return { selectedId, select: setSelectedId }
+  const context = React.useContext(SelectedUserContext)
+  if (!context) {
+    throw new Error('useSelectedUser must be used within an AppStateProvider')
+  }
+  return context
 }
