@@ -1,6 +1,7 @@
 import { AppStateProvider } from './AppState'
 import { UsersScreen } from './UsersScreen'
 import { SelectedUserBadge } from './SelectedUserBadge'
+import styles from './app.module.css'
 
 /**
  * Demo wiring: a single `AppStateProvider` shares the fetched-once user list
@@ -9,8 +10,11 @@ import { SelectedUserBadge } from './SelectedUserBadge'
 export default function Demo() {
   return (
     <AppStateProvider>
-      <SelectedUserBadge />
-      <UsersScreen />
+      <div className={styles.demo}>
+        <h1 className={styles.title}>Users</h1>
+        <SelectedUserBadge />
+        <UsersScreen />
+      </div>
     </AppStateProvider>
   )
 }

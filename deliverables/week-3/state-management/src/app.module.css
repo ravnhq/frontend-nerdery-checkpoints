@@ -1,0 +1,84 @@
+:root {
+  --sm-bg: #ffffff;
+  --sm-surface: #f4f5f7;
+  --sm-text: #1a1a2e;
+  --sm-muted: #5a5a72;
+  --sm-accent: #4c6fff;
+  --sm-border: #e2e4ea;
+
+  --sm-space-xs: 0.5rem;
+  --sm-space-sm: 0.75rem;
+  --sm-space-md: 1rem;
+  --sm-space-lg: 2rem;
+  --sm-radius: 8px;
+  --sm-font: system-ui, sans-serif;
+}
+
+.demo {
+  display: grid;
+  gap: var(--sm-space-md);
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: var(--sm-space-lg) var(--sm-space-md);
+  background: var(--sm-bg);
+  color: var(--sm-text);
+  font-family: var(--sm-font);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.badge {
+  margin: 0;
+  padding: var(--sm-space-xs) var(--sm-space-sm);
+  border-left: 3px solid var(--sm-accent);
+  border-radius: var(--sm-radius);
+  background: var(--sm-surface);
+  font-family: var(--sm-font);
+  font-weight: 600;
+}
+
+.badge[data-empty='true'] {
+  border-left-color: var(--sm-border);
+  color: var(--sm-muted);
+  font-weight: 400;
+}
+
+.list {
+  display: grid;
+  gap: var(--sm-space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.userButton {
+  width: 100%;
+  padding: var(--sm-space-xs) var(--sm-space-sm);
+  border: 1px solid var(--sm-border);
+  border-radius: var(--sm-radius);
+  background: var(--sm-surface);
+  color: var(--sm-text);
+  font: inherit;
+  font-family: var(--sm-font);
+  text-align: left;
+  cursor: pointer;
+}
+
+.userButton:hover {
+  border-color: var(--sm-accent);
+  color: var(--sm-accent);
+}
+
+.userButton:focus-visible {
+  outline: 2px solid var(--sm-accent);
+  outline-offset: 2px;
+}
+
+.loading {
+  margin: 0;
+  color: var(--sm-muted);
+  font-family: var(--sm-font);
+}
