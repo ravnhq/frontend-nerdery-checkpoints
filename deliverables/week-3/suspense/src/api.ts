@@ -10,9 +10,11 @@ const SAMPLE_USERS: User[] = [
 ]
 
 // Simulates a network request. Tests MOCK this function to control
-// resolution/rejection, so the real delay never runs under test.
+// resolution/rejection, so the real delay never runs under test - long
+// enough here that a human clicking through the demo actually sees the
+// Suspense fallback instead of a 300ms flash.
 export function fetchUsers(): Promise<User[]> {
   return new Promise((resolve) => {
-    window.setTimeout(() => resolve(SAMPLE_USERS), 300)
+    window.setTimeout(() => resolve(SAMPLE_USERS), 1500)
   })
 }

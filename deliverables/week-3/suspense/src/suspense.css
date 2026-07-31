@@ -1,0 +1,67 @@
+/*
+ * Suspense (Roster) — same editorial system as Patterns, under its own
+ * token namespace so the demos don't collide when the SPA dev server keeps
+ * several of them mounted at once.
+ */
+
+:root {
+  --roster-paper: oklch(98.6% 0.002 264);
+  --roster-ink: oklch(22% 0.015 264);
+  --roster-muted: oklch(50% 0.015 264);
+  --roster-rule: oklch(89% 0.005 264);
+  --roster-accent: oklch(50% 0.19 256);
+  --roster-danger: oklch(51% 0.2 27);
+  --roster-danger-soft: oklch(96% 0.025 27);
+
+  --roster-sans: 'Helvetica Neue', Helvetica, Inter, system-ui, Arial, sans-serif;
+
+  --roster-text-title: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --roster-text-body: 0.875rem;
+  --roster-text-label: 0.6875rem;
+
+  --roster-space-2xs: 0.25rem;
+  --roster-space-xs: 0.5rem;
+  --roster-space-sm: 0.75rem;
+  --roster-space-md: 1.25rem;
+  --roster-space-lg: 2rem;
+  --roster-space-xl: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+
+  --roster-track-label: 0.14em;
+  --roster-duration: 140ms;
+  --roster-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Theming follows the house convention: `[data-theme]` on the root element
+   drives the palette. */
+[data-theme='dark'] {
+  --roster-paper: oklch(17% 0.014 264);
+  --roster-ink: oklch(95% 0.004 264);
+  --roster-muted: oklch(68% 0.014 264);
+  --roster-rule: oklch(30% 0.014 264);
+  --roster-accent: oklch(72% 0.15 256);
+  --roster-danger: oklch(70% 0.16 25);
+  --roster-danger-soft: oklch(28% 0.07 25);
+}
+
+/* Serves the right palette for the instant before React hydrates.
+   ThemeProvider takes over immediately after mount, but reads this same OS
+   preference when nothing's stored yet, so the two agree and there's no
+   flash. Guarding on `:not([data-theme])` keeps an explicit choice winning
+   in both directions once one exists. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --roster-paper: oklch(17% 0.014 264);
+    --roster-ink: oklch(95% 0.004 264);
+    --roster-muted: oklch(68% 0.014 264);
+    --roster-rule: oklch(30% 0.014 264);
+    --roster-accent: oklch(72% 0.15 256);
+    --roster-danger: oklch(70% 0.16 25);
+    --roster-danger-soft: oklch(28% 0.07 25);
+  }
+}
+
+.roster-demo :focus-visible {
+  outline: 2px solid var(--roster-accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}

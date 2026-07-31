@@ -1,0 +1,70 @@
+@import './suspense.css';
+
+.roster__loading {
+  padding-block: var(--roster-space-md);
+  color: var(--roster-muted);
+  font-size: var(--roster-text-body);
+}
+
+.roster__alert {
+  padding: var(--roster-space-md);
+  border: 1px solid var(--roster-danger);
+  background: var(--roster-danger-soft);
+  border-radius: 2px;
+}
+
+.roster__alert p {
+  margin: 0 0 var(--roster-space-sm);
+  color: var(--roster-danger);
+  font-size: var(--roster-text-body);
+}
+
+.roster__retry {
+  padding: var(--roster-space-xs) var(--roster-space-md);
+  border: 0;
+  background: var(--roster-ink);
+  color: var(--roster-paper);
+  font-family: inherit;
+  font-size: var(--roster-text-label);
+  font-weight: 700;
+  letter-spacing: var(--roster-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--roster-duration) var(--roster-ease),
+    transform var(--roster-duration) var(--roster-ease);
+}
+
+.roster__retry:hover {
+  background: var(--roster-accent);
+}
+
+.roster__retry:active {
+  transform: translateY(1px);
+}
+
+.roster__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.roster__list li {
+  padding-block: var(--roster-space-sm);
+  border-bottom: 1px solid var(--roster-rule);
+  font-size: var(--roster-text-body);
+}
+
+.roster__list li:last-child {
+  border-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roster__retry {
+    transition: none;
+  }
+
+  .roster__retry:active {
+    transform: none;
+  }
+}
