@@ -1,0 +1,4 @@
+.selected {
+  color: var(--color-tertiary);
+  font-size: 1.5rem;
+}

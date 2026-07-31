@@ -1,4 +1,5 @@
 import { useUsers, useSelectedUser } from './AppState'
+import './UsersScreen.css'
 
 /**
  * Lists the users returned by `useUsers`. Each user has a button whose
@@ -13,7 +14,7 @@ export function UsersScreen() {
   }
 
   return (
-    <ul>
+    <ul className="usersList">
       {users.map((user) => (
         <li key={user.id}>
           <button type="button" onClick={() => select(user.id)}>

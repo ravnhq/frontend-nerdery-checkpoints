@@ -1,0 +1,11 @@
+:root {
+  --color-primary: #004ac6;
+  --color-secondary: #c3c6d7;
+  --color-tertiary: #434655;
+}
+
+.state-title {
+  font-size: 2rem;
+  color: var(--color-primary);
+  font-weight: 500;
+}

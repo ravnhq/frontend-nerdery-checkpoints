@@ -1,4 +1,5 @@
 import { useUsers, useSelectedUser } from './AppState'
+import './SelectedUserBadge.css'
 
 /**
  * Shows the name of the currently-selected user, e.g. `Selected: Ada`.
@@ -8,9 +9,12 @@ import { useUsers, useSelectedUser } from './AppState'
  */
 export function SelectedUserBadge() {
   const { users } = useUsers()
+
   const { selectedId } = useSelectedUser()
 
   const selected = users.find((user) => user.id === selectedId)
 
-  return <p>Selected: {selected ? selected.name : 'none'}</p>
+  return (
+    <p className="selected">Selected: {selected ? selected.name : 'none'}</p>
+  )
 }
