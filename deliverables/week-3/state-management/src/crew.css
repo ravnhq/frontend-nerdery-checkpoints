@@ -1,0 +1,64 @@
+/*
+ * State Management (Crew) — same editorial system as Patterns/Suspense,
+ * under its own token namespace so the demos don't collide when the SPA
+ * dev server keeps several of them mounted at once.
+ */
+
+:root {
+  --crew-paper: oklch(98.6% 0.002 264);
+  --crew-ink: oklch(22% 0.015 264);
+  --crew-muted: oklch(50% 0.015 264);
+  --crew-rule: oklch(89% 0.005 264);
+  --crew-accent: oklch(50% 0.19 256);
+  --crew-accent-soft: oklch(95% 0.03 256);
+
+  --crew-sans: 'Helvetica Neue', Helvetica, Inter, system-ui, Arial, sans-serif;
+
+  --crew-text-title: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --crew-text-body: 0.875rem;
+  --crew-text-label: 0.6875rem;
+
+  --crew-space-2xs: 0.25rem;
+  --crew-space-xs: 0.5rem;
+  --crew-space-sm: 0.75rem;
+  --crew-space-md: 1.25rem;
+  --crew-space-lg: 2rem;
+  --crew-space-xl: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+
+  --crew-track-label: 0.14em;
+  --crew-duration: 140ms;
+  --crew-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Theming follows the house convention: `[data-theme]` on the root element
+   drives the palette. */
+[data-theme='dark'] {
+  --crew-paper: oklch(17% 0.014 264);
+  --crew-ink: oklch(95% 0.004 264);
+  --crew-muted: oklch(68% 0.014 264);
+  --crew-rule: oklch(30% 0.014 264);
+  --crew-accent: oklch(72% 0.15 256);
+  --crew-accent-soft: oklch(28% 0.06 256);
+}
+
+/* Serves the right palette for the instant before React hydrates.
+   ThemeProvider takes over immediately after mount, but reads this same OS
+   preference when nothing's stored yet, so the two agree and there's no
+   flash. Guarding on `:not([data-theme])` keeps an explicit choice winning
+   in both directions once one exists. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --crew-paper: oklch(17% 0.014 264);
+    --crew-ink: oklch(95% 0.004 264);
+    --crew-muted: oklch(68% 0.014 264);
+    --crew-rule: oklch(30% 0.014 264);
+    --crew-accent: oklch(72% 0.15 256);
+    --crew-accent-soft: oklch(28% 0.06 256);
+  }
+}
+
+.crew-demo :focus-visible {
+  outline: 2px solid var(--crew-accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}

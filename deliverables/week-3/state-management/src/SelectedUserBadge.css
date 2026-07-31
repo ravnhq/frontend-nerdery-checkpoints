@@ -1,0 +1,14 @@
+@import './crew.css';
+
+.crew__badge {
+  display: inline-block;
+  margin: 0 0 var(--crew-space-lg);
+  padding: var(--crew-space-2xs) var(--crew-space-sm);
+  border: 1px solid var(--crew-rule);
+  border-radius: 999px;
+  color: var(--crew-muted);
+  font-size: var(--crew-text-label);
+  font-weight: 700;
+  letter-spacing: var(--crew-track-label);
+  text-transform: uppercase;
+}

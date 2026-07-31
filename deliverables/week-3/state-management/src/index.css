@@ -1,0 +1,70 @@
+@import './crew.css';
+
+.crew-demo {
+  color-scheme: light dark;
+  min-height: 100vh;
+  padding-block: var(--crew-space-xl);
+  padding-inline: clamp(1rem, 0.4rem + 2.6vw, 3.5rem);
+  background: var(--crew-paper);
+  color: var(--crew-ink);
+  font-family: var(--crew-sans);
+}
+
+.crew-demo__inner {
+  max-width: 28rem;
+  margin-inline: auto;
+}
+
+.crew-demo__masthead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--crew-space-md);
+  margin-bottom: var(--crew-space-xl);
+  padding-bottom: var(--crew-space-sm);
+  border-bottom: 4px solid var(--crew-ink);
+}
+
+.crew-demo__title {
+  margin: 0;
+  font-size: var(--crew-text-title);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.crew-demo__toggle {
+  flex: none;
+  padding: var(--crew-space-xs) var(--crew-space-md);
+  border: 0;
+  background: var(--crew-ink);
+  color: var(--crew-paper);
+  font-family: inherit;
+  font-size: var(--crew-text-label);
+  font-weight: 700;
+  letter-spacing: var(--crew-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--crew-duration) var(--crew-ease),
+    transform var(--crew-duration) var(--crew-ease);
+}
+
+.crew-demo__toggle:hover {
+  background: var(--crew-accent);
+}
+
+.crew-demo__toggle:active {
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crew-demo__toggle {
+    transition: none;
+  }
+
+  .crew-demo__toggle:active {
+    transform: none;
+  }
+}

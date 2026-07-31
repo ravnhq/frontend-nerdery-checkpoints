@@ -1,0 +1,47 @@
+@import './crew.css';
+
+.crew__loading {
+  color: var(--crew-muted);
+  font-size: var(--crew-text-body);
+}
+
+.crew__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--crew-space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crew__user {
+  width: 100%;
+  padding: var(--crew-space-sm) var(--crew-space-md);
+  border: 1px solid var(--crew-rule);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--crew-ink);
+  font-family: inherit;
+  font-size: var(--crew-text-body);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--crew-duration) var(--crew-ease),
+    background-color var(--crew-duration) var(--crew-ease);
+}
+
+.crew__user:hover {
+  border-color: var(--crew-accent);
+}
+
+.crew__user[aria-pressed='true'] {
+  border-color: var(--crew-accent);
+  background: var(--crew-accent-soft);
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crew__user {
+    transition: none;
+  }
+}
