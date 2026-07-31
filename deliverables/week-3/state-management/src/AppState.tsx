@@ -32,12 +32,10 @@ export function useUsers(): { users: User[]; isLoading: boolean } {
   return { users: data ?? [], isLoading }
 }
 
-// STUB (breaks sharing): selection lives in local component state, so each
-// consumer has its OWN selection and siblings never see each other's choice.
-export function useSelectedUser(): {
-  selectedId: string | null
-  select: (id: string) => void
-} {
-  const [selectedId, setSelectedId] = React.useState<string | null>(null)
-  return { selectedId, select: setSelectedId }
+export function useSelectedUser(): SelectionContextValue {
+  const context = React.useContext(SelectionContext)
+  if (!context) {
+    throw new Error('useSelectedUser must be used within a SelectionContext.Provider')
+  }
+  return context
 }
