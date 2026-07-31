@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useLocalStorageState } from './useLocalStorageState'
 import type { FormState } from './formState'
 import { StatusBanner } from './StatusBanner'
 
@@ -12,7 +12,7 @@ const STATES: FormState[] = [
 ]
 
 export default function Demo() {
-  const [state, setState] = useState<FormState>(STATES[0])
+  const [state, setState] = useLocalStorageState<FormState>('demo', STATES[0])
 
   return (
     <main style={{ fontFamily: 'system-ui', maxWidth: 640, margin: '1rem auto', padding: '0 1rem' }}>
