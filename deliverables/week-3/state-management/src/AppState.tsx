@@ -1,6 +1,6 @@
 import React from 'react'
 import { fetchUsers, type User } from './api'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 
 interface SelectionContextValue {
   selectedId: string | null
@@ -24,25 +24,12 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
   )
 }
 
-// STUB (breaks dedupe): every component that calls this fires its own
-// `fetchUsers`, so N consumers produce N network calls instead of one.
 export function useUsers(): { users: User[]; isLoading: boolean } {
-  const [users, setUsers] = React.useState<User[]>([])
-  const [isLoading, setIsLoading] = React.useState(true)
-
-  React.useEffect(() => {
-    let active = true
-    fetchUsers().then((result) => {
-      if (!active) return
-      setUsers(result)
-      setIsLoading(false)
-    })
-    return () => {
-      active = false
-    }
-  }, [])
-
-  return { users, isLoading }
+  const { data, isLoading } = useQuery({
+    queryKey: ['users'],
+    queryFn: fetchUsers,
+  })
+  return { users: data ?? [], isLoading }
 }
 
 // STUB (breaks sharing): selection lives in local component state, so each
