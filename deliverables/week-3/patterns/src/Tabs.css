@@ -1,0 +1,78 @@
+@import './patterns.css';
+
+.tabs__list {
+  display: flex;
+  gap: var(--tabs-space-md);
+  margin-bottom: var(--tabs-space-lg);
+  border-bottom: 1px solid var(--tabs-rule);
+}
+
+.tabs__tab {
+  position: relative;
+  /* Horizontal padding widens the click/tap target beyond the text; the
+     matching negative margin cancels it back out of the flex layout, so
+     tabs keep their original visual spacing. The two combined still leave
+     0.25rem of true gap between adjacent hit areas (0.5rem in from a
+     1.25rem gap on each side), so targets can't overlap. */
+  padding: var(--tabs-space-xs);
+  margin-inline: calc(var(--tabs-space-xs) * -1);
+  border: 0;
+  background: transparent;
+  color: var(--tabs-muted);
+  font-family: inherit;
+  font-size: var(--tabs-text-label);
+  font-weight: 700;
+  letter-spacing: var(--tabs-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    color var(--tabs-duration) var(--tabs-ease),
+    transform var(--tabs-duration) var(--tabs-ease);
+}
+
+/* Sits on top of the tablist's own rule, so only the selected tab's
+   indicator draws over it. */
+.tabs__tab::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--tabs-accent);
+  transform: scaleX(0);
+  transition: transform var(--tabs-duration) var(--tabs-ease);
+}
+
+.tabs__tab:hover {
+  color: var(--tabs-ink);
+}
+
+.tabs__tab:active {
+  transform: translateY(1px);
+}
+
+.tabs__tab[aria-selected='true'] {
+  color: var(--tabs-ink);
+}
+
+.tabs__tab[aria-selected='true']::after {
+  transform: scaleX(1);
+}
+
+.tabs__panel {
+  max-width: 34rem;
+  padding-block: var(--tabs-space-xs);
+  font-size: var(--tabs-text-body);
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs__tab,
+  .tabs__tab::after {
+    transition: none;
+  }
+
+  .tabs__tab:active {
+    transform: none;
+  }
+}

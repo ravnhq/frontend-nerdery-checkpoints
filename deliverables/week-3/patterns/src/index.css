@@ -1,0 +1,87 @@
+@import './patterns.css';
+
+.tabs-demo {
+  /* Scoped rather than set on :root so the other deliverables' demos keep
+     their own canvas. */
+  color-scheme: light dark;
+  min-height: 100vh;
+  padding-block: var(--tabs-space-xl);
+  padding-inline: clamp(1rem, 0.4rem + 2.6vw, 3.5rem);
+  background: var(--tabs-paper);
+  color: var(--tabs-ink);
+  font-family: var(--tabs-sans);
+}
+
+.tabs-demo__inner {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.tabs-demo__masthead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--tabs-space-md);
+  margin-bottom: var(--tabs-space-xl);
+  padding-bottom: var(--tabs-space-sm);
+  border-bottom: 4px solid var(--tabs-ink);
+}
+
+.tabs-demo__title {
+  margin: 0;
+  font-size: var(--tabs-text-title);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.tabs-demo__toggle {
+  flex: none;
+  padding: var(--tabs-space-xs) var(--tabs-space-md);
+  border: 0;
+  background: var(--tabs-ink);
+  color: var(--tabs-paper);
+  font-family: inherit;
+  font-size: var(--tabs-text-label);
+  font-weight: 700;
+  letter-spacing: var(--tabs-track-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--tabs-duration) var(--tabs-ease),
+    transform var(--tabs-duration) var(--tabs-ease);
+}
+
+.tabs-demo__toggle:hover {
+  background: var(--tabs-accent);
+}
+
+.tabs-demo__toggle:active {
+  transform: translateY(1px);
+}
+
+.tabs-demo__section {
+  margin-top: var(--tabs-space-xl);
+  padding-top: var(--tabs-space-lg);
+  border-top: 1px solid var(--tabs-rule);
+}
+
+.tabs-demo__section-label {
+  margin: 0 0 var(--tabs-space-md);
+  color: var(--tabs-muted);
+  font-size: var(--tabs-text-label);
+  font-weight: 700;
+  letter-spacing: var(--tabs-track-label);
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs-demo__toggle {
+    transition: none;
+  }
+
+  .tabs-demo__toggle:active {
+    transform: none;
+  }
+}

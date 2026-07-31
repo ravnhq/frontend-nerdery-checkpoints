@@ -1,0 +1,74 @@
+/*
+ * Patterns (Tabs) — same editorial system as contact-list, under its own
+ * token namespace so the demos don't collide when the SPA dev server
+ * keeps several of them mounted at once.
+ */
+
+:root {
+  --tabs-paper: oklch(98.6% 0.002 264);
+  --tabs-raised: oklch(100% 0 0);
+  --tabs-ink: oklch(22% 0.015 264);
+  --tabs-muted: oklch(50% 0.015 264);
+  --tabs-rule: oklch(89% 0.005 264);
+  --tabs-accent: oklch(50% 0.19 256);
+  --tabs-accent-soft: oklch(95% 0.03 256);
+  --tabs-danger: oklch(51% 0.2 27);
+  --tabs-danger-soft: oklch(96% 0.025 27);
+
+  --tabs-sans: 'Helvetica Neue', Helvetica, Inter, system-ui, Arial, sans-serif;
+  --tabs-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  --tabs-text-title: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --tabs-text-body: 0.875rem;
+  --tabs-text-label: 0.6875rem;
+
+  --tabs-space-2xs: 0.25rem;
+  --tabs-space-xs: 0.5rem;
+  --tabs-space-sm: 0.75rem;
+  --tabs-space-md: 1.25rem;
+  --tabs-space-lg: 2rem;
+  --tabs-space-xl: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+
+  --tabs-track-label: 0.14em;
+  --tabs-duration: 140ms;
+  --tabs-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Theming follows the house convention: `[data-theme]` on the root element
+   drives the palette. */
+[data-theme='dark'] {
+  --tabs-paper: oklch(17% 0.014 264);
+  --tabs-raised: oklch(21% 0.016 264);
+  --tabs-ink: oklch(95% 0.004 264);
+  --tabs-muted: oklch(68% 0.014 264);
+  --tabs-rule: oklch(30% 0.014 264);
+  --tabs-accent: oklch(72% 0.15 256);
+  --tabs-accent-soft: oklch(28% 0.06 256);
+  --tabs-danger: oklch(70% 0.16 25);
+  --tabs-danger-soft: oklch(28% 0.07 25);
+}
+
+/* Serves the right palette for the instant before React hydrates.
+   ThemeProvider takes over immediately after mount, but reads this same OS
+   preference when nothing's stored yet, so the two agree and there's no
+   flash. Guarding on `:not([data-theme])` keeps an explicit choice winning
+   in both directions once one exists. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --tabs-paper: oklch(17% 0.014 264);
+    --tabs-raised: oklch(21% 0.016 264);
+    --tabs-ink: oklch(95% 0.004 264);
+    --tabs-muted: oklch(68% 0.014 264);
+    --tabs-rule: oklch(30% 0.014 264);
+    --tabs-accent: oklch(72% 0.15 256);
+    --tabs-accent-soft: oklch(28% 0.06 256);
+    --tabs-danger: oklch(70% 0.16 25);
+    --tabs-danger-soft: oklch(28% 0.07 25);
+  }
+}
+
+.tabs-demo :focus-visible {
+  outline: 2px solid var(--tabs-accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
