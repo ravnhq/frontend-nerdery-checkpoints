@@ -1,15 +1,10 @@
-import { createContext, useState, type ReactNode } from 'react'
-
-// ---------------------------------------------------------------------------
-// STUB IMPLEMENTATION
-// Renders the sub-components flat with the correct roles so tests fail on the
-// behavioural assertions (one visible panel, aria-selected, switching) rather
-// than on import errors. Replace with the reference solution.
-// ---------------------------------------------------------------------------
+import { createContext, useContext, useState, useId, useMemo, type KeyboardEvent, type ReactNode } from 'react'
 
 interface TabsContextValue {
   value: string
   setValue: (value: string) => void
+  keepPanelsMounted: boolean
+  baseId: string
 }
 
 const TabsContext = createContext<TabsContextValue | null>(null)
@@ -17,17 +12,30 @@ const TabsContext = createContext<TabsContextValue | null>(null)
 interface TabsProps {
   defaultValue: string
   children: ReactNode
+  keepPanelsMounted?: boolean
 }
 
-function TabsRoot({ defaultValue, children }: TabsProps) {
-  const [value] = useState(defaultValue)
-  // STUB: activation is not wired up yet.
-  const setValue = (_next: string): void => {}
+function TabsRoot({ defaultValue, children, keepPanelsMounted = false,}: TabsProps) {
+  const [value, setValue] = useState(defaultValue)
+  const baseId = useId()
+
+  const contextValue = useMemo(
+    () => ({ value, setValue, keepPanelsMounted, baseId }),
+    [value, keepPanelsMounted, baseId],
+  )
   return (
-    <TabsContext.Provider value={{ value, setValue }}>
+    <TabsContext.Provider value={contextValue}>
       {children}
     </TabsContext.Provider>
   )
+}
+
+function useTabsContext(): TabsContextValue {
+  const context = useContext(TabsContext)
+  if(context === null) {
+    throw new Error('Tabs components must be inside <Tabs>.')
+  }
+  return context
 }
 
 interface TabsListProps {
@@ -35,7 +43,45 @@ interface TabsListProps {
 }
 
 function TabsList({ children }: TabsListProps) {
-  return <div role="tablist">{children}</div>
+  useTabsContext()
+  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    const tabs = Array.from(
+      event.currentTarget.querySelectorAll<HTMLButtonElement>(
+        '[role="tab"]:not(:disabled)',
+      ),
+    )
+
+    const currentIndex = tabs.indexOf(
+      document.activeElement as HTMLButtonElement,
+    )
+
+    if (currentIndex === -1) {
+      return
+    }
+
+    let nextIndex: number
+
+    switch (event.key) {
+      case 'ArrowRight':
+        nextIndex = (currentIndex + 1) % tabs.length
+        break
+      case 'ArrowLeft':
+        nextIndex = (currentIndex - 1 + tabs.length) % tabs.length
+        break
+      case 'Home':
+        nextIndex = 0
+        break
+      case 'End':
+        nextIndex = tabs.length - 1
+        break
+      default:
+        return
+    }
+
+    event.preventDefault()
+    tabs[nextIndex].focus()
+  }
+  return <div role="tablist" aria-label="Content sections" onKeyDown={handleKeyDown}>{children}</div>
 }
 
 interface TabProps {
@@ -43,10 +89,18 @@ interface TabProps {
   children: ReactNode
 }
 
-function Tab({ value: _value, children }: TabProps) {
-  // STUB: never selected, click does nothing.
+function Tab({ value, children }: TabProps) {
+  const { value: activeValue, setValue, keepPanelsMounted, baseId } = useTabsContext()
+  const isActive = value === activeValue
+  const tabId = `${baseId}-tab-${value}`
+  const panelId = `${baseId}-panel-${value}`
+
+  function handleClick() {
+    setValue(value)
+  }
+
   return (
-    <button type="button" role="tab" aria-selected={false}>
+    <button id={tabId} type="button" role="tab" aria-selected={isActive} aria-controls={keepPanelsMounted ? panelId : undefined} tabIndex={isActive ? 0 : -1} onClick={handleClick}>
       {children}
     </button>
   )
@@ -57,9 +111,16 @@ interface TabsPanelProps {
   children: ReactNode
 }
 
-function TabsPanel({ value: _value, children }: TabsPanelProps) {
-  // STUB: every panel is always rendered.
-  return <div role="tabpanel">{children}</div>
+function TabsPanel({ value, children }: TabsPanelProps) {
+  const { value: activeValue, keepPanelsMounted, baseId } = useTabsContext()
+  const isActive = value === activeValue
+  const tabId = `${baseId}-tab-${value}`
+  const panelId = `${baseId}-panel-${value}`
+  
+  if (!isActive && !keepPanelsMounted) {
+    return null
+  }
+  return <div id={panelId} role="tabpanel" aria-labelledby={tabId} hidden={!isActive}>{children}</div>
 }
 
 export const Tabs = Object.assign(TabsRoot, {
