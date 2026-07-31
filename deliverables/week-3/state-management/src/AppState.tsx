@@ -1,20 +1,27 @@
 import React from 'react'
 import { fetchUsers, type User } from './api'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-/**
- * STUB — intentionally wrong so the acceptance tests fail (RED).
- *
- * Replace this file with a real implementation:
- *  - `useUsers` must fetch ONCE and share/dedupe the result across every
- *    component under `AppStateProvider` (no duplicate in-flight requests).
- *  - `useSelectedUser` must expose a SINGLE, globally-shared selection so
- *    that sibling components read and write the same value.
- */
+interface SelectionContextValue {
+  selectedId: string | null
+  select: (id: string) => void
+}
+const SelectionContext = React.createContext<SelectionContextValue | null>(null)
 
-// STUB: provider does nothing but render children — no shared cache, no
-// shared selection.
+const queryClient = new QueryClient()
+
 export function AppStateProvider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  const [selectedId, setSelectedId] = React.useState<string | null>(null)
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <SelectionContext.Provider
+        value={{ selectedId, select: setSelectedId }}
+      >
+        {children}
+      </SelectionContext.Provider>
+    </QueryClientProvider>
+  )
 }
 
 // STUB (breaks dedupe): every component that calls this fires its own
