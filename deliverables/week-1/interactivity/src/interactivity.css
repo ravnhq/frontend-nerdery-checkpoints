@@ -1,0 +1,72 @@
+/*
+ * Interactivity — same editorial system as contact-list, under its own
+ * token namespace so the two demos don't collide when the SPA dev server
+ * keeps both mounted at once.
+ */
+
+:root {
+  --iact-paper: oklch(98.6% 0.002 264);
+  --iact-raised: oklch(100% 0 0);
+  --iact-ink: oklch(22% 0.015 264);
+  --iact-muted: oklch(50% 0.015 264);
+  --iact-rule: oklch(89% 0.005 264);
+  --iact-accent: oklch(50% 0.19 256);
+  --iact-accent-soft: oklch(95% 0.03 256);
+  --iact-danger: oklch(51% 0.2 27);
+  --iact-danger-soft: oklch(96% 0.025 27);
+
+  --iact-sans: 'Helvetica Neue', Helvetica, Inter, system-ui, Arial, sans-serif;
+  --iact-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  --iact-text-title: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --iact-text-body: 0.875rem;
+  --iact-text-label: 0.6875rem;
+
+  --iact-space-2xs: 0.25rem;
+  --iact-space-xs: 0.5rem;
+  --iact-space-sm: 0.75rem;
+  --iact-space-md: 1.25rem;
+  --iact-space-lg: 2rem;
+  --iact-space-xl: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+
+  --iact-track-label: 0.14em;
+  --iact-duration: 140ms;
+  --iact-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Theming follows the house convention: `[data-theme]` on the root element
+   drives the palette. */
+[data-theme='dark'] {
+  --iact-paper: oklch(17% 0.014 264);
+  --iact-raised: oklch(21% 0.016 264);
+  --iact-ink: oklch(95% 0.004 264);
+  --iact-muted: oklch(68% 0.014 264);
+  --iact-rule: oklch(30% 0.014 264);
+  --iact-accent: oklch(72% 0.15 256);
+  --iact-accent-soft: oklch(28% 0.06 256);
+  --iact-danger: oklch(70% 0.16 25);
+  --iact-danger-soft: oklch(28% 0.07 25);
+}
+
+/* Nothing sets `data-theme` on this route — honour the OS preference until
+   something does. Guarding on `:not([data-theme])` keeps an explicit choice
+   winning in both directions once one exists. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --iact-paper: oklch(17% 0.014 264);
+    --iact-raised: oklch(21% 0.016 264);
+    --iact-ink: oklch(95% 0.004 264);
+    --iact-muted: oklch(68% 0.014 264);
+    --iact-rule: oklch(30% 0.014 264);
+    --iact-accent: oklch(72% 0.15 256);
+    --iact-accent-soft: oklch(28% 0.06 256);
+    --iact-danger: oklch(70% 0.16 25);
+    --iact-danger-soft: oklch(28% 0.07 25);
+  }
+}
+
+.iact-demo :focus-visible {
+  outline: 2px solid var(--iact-accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}

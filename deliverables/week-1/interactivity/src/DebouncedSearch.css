@@ -1,0 +1,50 @@
+@import './interactivity.css';
+
+.iact-search {
+  display: flex;
+  flex-direction: column;
+  gap: var(--iact-space-2xs);
+  max-width: 28rem;
+}
+
+.iact-search__label {
+  font-size: var(--iact-text-label);
+  font-weight: 600;
+  letter-spacing: var(--iact-track-label);
+  text-transform: uppercase;
+  color: var(--iact-muted);
+}
+
+.iact-search__input {
+  padding: var(--iact-space-xs) 0;
+  border: 0;
+  border-bottom: 1px solid var(--iact-rule);
+  background: transparent;
+  color: var(--iact-ink);
+  font-family: inherit;
+  font-size: var(--iact-text-body);
+  transition: border-color var(--iact-duration) var(--iact-ease);
+}
+
+.iact-search__input:hover {
+  border-bottom-color: var(--iact-muted);
+}
+
+.iact-search__input:focus-visible {
+  border-bottom-color: var(--iact-accent);
+}
+
+/* Echoes raw input back, so it carries the same mono treatment contact-list
+   reserves for machine/echoed data (emails there, the debounced query here). */
+.iact-search__status {
+  margin: 0;
+  font-family: var(--iact-mono);
+  font-size: var(--iact-text-body);
+  color: var(--iact-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iact-search__input {
+    transition: none;
+  }
+}

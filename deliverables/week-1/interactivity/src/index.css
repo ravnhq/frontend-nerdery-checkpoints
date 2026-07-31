@@ -1,0 +1,33 @@
+@import './interactivity.css';
+
+.iact-demo {
+  /* Scoped rather than set on :root so the other deliverables' demos keep
+     their own canvas. */
+  color-scheme: light dark;
+  min-height: 100vh;
+  padding-block: var(--iact-space-xl);
+  padding-inline: clamp(1rem, 0.4rem + 2.6vw, 3.5rem);
+  background: var(--iact-paper);
+  color: var(--iact-ink);
+  font-family: var(--iact-sans);
+}
+
+.iact-demo__inner {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.iact-demo__masthead {
+  margin-bottom: var(--iact-space-xl);
+  padding-bottom: var(--iact-space-sm);
+  border-bottom: 4px solid var(--iact-ink);
+}
+
+.iact-demo__title {
+  margin: 0;
+  font-size: var(--iact-text-title);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
