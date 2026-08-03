@@ -1,0 +1,315 @@
+@property --state-management-beam-angle {
+  inherits: false;
+  initial-value: 0deg;
+  syntax: "<angle>";
+}
+
+.state-management__panel {
+  --state-management-beam-angle: 0deg;
+}
+
+.state-management {
+  align-items: center;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgb(249 115 22 / 17%), transparent 30rem),
+    linear-gradient(135deg, #160605, #270b07 48%, #0b0303);
+  box-sizing: border-box;
+  color: #fff7ed;
+  display: flex;
+  font-family: Aptos, "Segoe UI Variable", "Helvetica Neue", Arial, sans-serif;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 2rem;
+  position: relative;
+}
+
+.state-management::before {
+  background: radial-gradient(circle at center, rgb(255 237 213 / 12%), transparent 45%);
+  content: "";
+  inset: 0;
+  mask-image: radial-gradient(circle at center, black, transparent 75%);
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.state-management::after {
+  animation: state-management-ripple-expand 7s ease-out infinite;
+  background: repeating-radial-gradient(
+    circle at center,
+    transparent 0 4rem,
+    rgb(254 215 170 / 17%) 4.1rem 4.2rem,
+    transparent 4.3rem 8.5rem
+  );
+  content: "";
+  inset: -32%;
+  opacity: 0.78;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.state-management__panel {
+  animation: state-management-enter 480ms ease-out both;
+  backdrop-filter: blur(28px) saturate(145%);
+  background:
+    linear-gradient(135deg, rgb(255 237 213 / 17%), transparent 34%),
+    linear-gradient(145deg, rgb(82 29 21 / 63%), rgb(26 8 8 / 62%));
+  border: 1px solid rgb(255 237 213 / 28%);
+  border-radius: 1.5rem;
+  box-shadow: 0 26px 80px rgb(0 0 0 / 50%), 0 0 92px rgb(234 88 12 / 18%), inset 0 1px rgb(255 255 255 / 26%), inset 0 -1px rgb(69 10 10 / 28%);
+  max-width: 34rem;
+  overflow: hidden;
+  padding: 2.5rem;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  z-index: 1;
+}
+
+.state-management__panel::before {
+  background: linear-gradient(120deg, rgb(255 255 255 / 20%), transparent 22%, transparent 72%, rgb(251 146 60 / 12%));
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.state-management__panel::after {
+  animation: state-management-border-beam 4.2s linear infinite;
+  background: conic-gradient(
+    from var(--state-management-beam-angle),
+    transparent 0deg 245deg,
+    rgb(220 38 38 / 20%) 264deg,
+    #fb923c 278deg,
+    #ffedd5 286deg,
+    #ef4444 294deg,
+    rgb(220 38 38 / 15%) 310deg,
+    transparent 326deg 360deg
+  );
+  border-radius: inherit;
+  content: "";
+  inset: 0;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  padding: 2px;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+}
+
+.state-management__panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.state-management__header {
+  text-align: center;
+}
+
+.state-management__eyebrow {
+  color: #fdba74;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  margin: 0 0 0.65rem;
+  text-transform: uppercase;
+}
+
+.state-management h1 {
+  font-family: Aptos Display, Aptos, "Segoe UI Variable", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 2.65rem);
+  font-weight: 750;
+  letter-spacing: -0.055em;
+  line-height: 1;
+  margin: 0;
+}
+
+.state-management__subtitle {
+  color: #d6b9a9;
+  line-height: 1.6;
+  margin: 0.9rem auto 0;
+  max-width: 24rem;
+}
+
+.state-management__header {
+  font-family: Aptos, "Segoe UI Variable", "Helvetica Neue", Arial, sans-serif;
+}
+
+.state-management__badge {
+  align-items: center;
+  background: linear-gradient(135deg, rgb(127 29 29 / 42%), rgb(67 20 7 / 38%));
+  border: 1px solid rgb(254 215 170 / 31%);
+  border-radius: 999px;
+  color: #fed7aa;
+  display: flex;
+  font-size: 0.9rem;
+  gap: 0.6rem;
+  justify-content: center;
+  margin: 1.8rem auto;
+  overflow: hidden;
+  padding: 0.68rem 0.9rem 0.68rem 1rem;
+  position: relative;
+  box-shadow: 0 10px 28px rgb(69 10 10 / 24%), inset 0 1px rgb(255 255 255 / 13%);
+  width: fit-content;
+}
+
+.state-management__badge::after {
+  border-left: 1px solid rgb(254 215 170 / 25%);
+  color: #fdba74;
+  content: "GLOBAL STATE";
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  margin-left: 0.2rem;
+  padding-left: 0.65rem;
+}
+
+.state-management__badge-dot {
+  background: #fb923c;
+  border-radius: 999px;
+  box-shadow: 0 0 0 4px rgb(251 146 60 / 15%), 0 0 14px rgb(251 146 60 / 65%);
+  height: 0.45rem;
+  width: 0.45rem;
+}
+
+.state-management__users {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.state-management__user-button {
+  background: linear-gradient(135deg, rgb(39 15 14 / 82%), rgb(20 8 8 / 88%));
+  border: 1px solid rgb(254 215 170 / 14%);
+  border-radius: 0.8rem;
+  color: #ffedd5;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 650;
+  padding: 0.95rem 1rem;
+  text-align: left;
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  width: 100%;
+}
+
+.state-management__user-button:hover {
+  background: linear-gradient(135deg, rgb(127 29 29 / 75%), rgb(67 20 7 / 82%));
+  border-color: rgb(251 146 60 / 52%);
+  box-shadow: 0 10px 22px rgb(124 45 18 / 24%);
+  transform: translateY(-2px);
+}
+
+.state-management__user-button--selected {
+  background: linear-gradient(135deg, #b91c1c, #c2410c);
+  border-color: rgb(254 215 170 / 48%);
+  box-shadow: 0 12px 28px rgb(127 29 29 / 42%), inset 0 1px rgb(255 255 255 / 16%);
+  color: white;
+}
+
+.state-management__user-button:focus-visible {
+  outline: 3px solid #fdba74;
+  outline-offset: 3px;
+}
+
+.state-management__loading {
+  align-items: center;
+  animation: state-management-enter 420ms ease-out both;
+  color: #fed7aa;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  justify-content: center;
+  min-height: 12rem;
+  text-align: center;
+}
+
+.state-management__loading p {
+  animation: state-management-loading-pulse 1.6s ease-in-out infinite;
+  margin: 0;
+}
+
+.state-management__orb {
+  animation: state-management-orb-float 3s ease-in-out infinite;
+  background: radial-gradient(circle, rgb(251 146 60 / 18%), transparent 67%);
+  border-radius: 999px;
+}
+
+@keyframes state-management-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes state-management-orb-float {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes state-management-loading-pulse {
+  50% {
+    color: #fb923c;
+    letter-spacing: 0.035em;
+    opacity: 0.7;
+  }
+}
+
+@keyframes state-management-ripple-expand {
+  from {
+    opacity: 0.12;
+    transform: scale(0.88);
+  }
+
+  45% {
+    opacity: 0.78;
+  }
+
+  to {
+    opacity: 0.08;
+    transform: scale(1.16);
+  }
+}
+
+@keyframes state-management-border-beam {
+  to {
+    --state-management-beam-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .state-management__panel,
+  .state-management__loading,
+  .state-management__loading p,
+  .state-management__orb,
+  .state-management::after,
+  .state-management__panel::after {
+    animation: none;
+  }
+
+  .state-management__user-button {
+    transition: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .state-management {
+    padding: 1rem;
+  }
+
+  .state-management__panel {
+    padding: 2rem 1.25rem;
+  }
+}

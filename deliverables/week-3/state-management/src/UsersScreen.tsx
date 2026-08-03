@@ -1,3 +1,4 @@
+import { ThinkingOrb } from 'thinking-orbs'
 import { useUsers, useSelectedUser } from './AppState'
 
 /**
@@ -6,17 +7,27 @@ import { useUsers, useSelectedUser } from './AppState'
  */
 export function UsersScreen() {
   const { users, isLoading } = useUsers()
-  const { select } = useSelectedUser()
+  const { select, selectedId } = useSelectedUser()
 
   if (isLoading) {
-    return <p>Loading users…</p>
+    return (
+      <div className="state-management__loading">
+        <ThinkingOrb className="state-management__orb" state="connecting" size={64} theme="dark" aria-label="Loading users" />
+        <p>Loading users...</p>
+      </div>
+    )
   }
 
   return (
-    <ul>
+    <ul className="state-management__users" aria-label="Team members">
       {users.map((user) => (
         <li key={user.id}>
-          <button type="button" onClick={() => select(user.id)}>
+          <button
+            className={selectedId === user.id ? 'state-management__user-button state-management__user-button--selected' : 'state-management__user-button'}
+            type="button"
+            aria-pressed={selectedId === user.id}
+            onClick={() => select(user.id)}
+          >
             {user.name}
           </button>
         </li>
