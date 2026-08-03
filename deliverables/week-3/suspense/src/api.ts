@@ -12,7 +12,16 @@ const SAMPLE_USERS: User[] = [
 // Simulates a network request. Tests MOCK this function to control
 // resolution/rejection, so the real delay never runs under test.
 export function fetchUsers(): Promise<User[]> {
-  return new Promise((resolve) => {
-    window.setTimeout(() => resolve(SAMPLE_USERS), 300)
+  const shouldFail = false
+
+  return new Promise((resolve, reject) => {
+    window.setTimeout(() => {
+      if (shouldFail) {
+        reject(new Error('Failed to load users'))
+        return
+      }
+
+      resolve(SAMPLE_USERS)
+    }, 3000)
   })
 }

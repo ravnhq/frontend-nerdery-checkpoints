@@ -1,0 +1,177 @@
+.users-view {
+  align-items: center;
+  background:
+    radial-gradient(circle at 50% 12%, rgb(148 163 184 / 11%), transparent 31rem),
+    radial-gradient(circle at 80% 90%, rgb(71 85 105 / 16%), transparent 30rem),
+    linear-gradient(135deg, #020202, #0b0c0e 46%, #141619);
+  box-sizing: border-box;
+  color: #f8fafc;
+  display: flex;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 2rem;
+  position: relative;
+}
+
+.users-view::before {
+  background-image: linear-gradient(rgb(148 163 184 / 7%) 1px, transparent 1px), linear-gradient(90deg, rgb(148 163 184 / 7%) 1px, transparent 1px);
+  background-size: 32px 32px;
+  content: "";
+  inset: 0;
+  mask-image: linear-gradient(to bottom, black, transparent 70%);
+  pointer-events: none;
+  position: absolute;
+}
+
+.users-view__content,
+.users-view__status-card {
+  animation: users-view-enter 420ms ease-out both;
+  background: linear-gradient(145deg, rgb(39 42 46 / 82%), rgb(12 13 15 / 78%));
+  border: 1px solid rgb(226 232 240 / 13%);
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 70px rgb(0 0 0 / 35%), inset 0 1px rgb(255 255 255 / 6%);
+  max-width: 32rem;
+  padding: 2.5rem;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.users-view__status-card--loading {
+  box-shadow: 0 25px 70px rgb(0 0 0 / 55%), 0 0 80px rgb(148 163 184 / 8%), inset 0 1px rgb(255 255 255 / 6%);
+}
+
+.users-view__orb-wrap {
+  align-items: center;
+  animation: users-view-float 3s ease-in-out infinite;
+  background: radial-gradient(circle, rgb(226 232 240 / 16%), transparent 67%);
+  display: flex;
+  height: 7.5rem;
+  justify-content: center;
+  margin: -0.75rem auto 0.75rem;
+  width: 7.5rem;
+}
+
+.users-view__error-icon {
+  align-items: center;
+  background: rgb(251 146 60 / 12%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fdba74' stroke-width='1.8'%3E%3Cpath d='M12 8v4' stroke-linecap='round'/%3E%3Cpath d='M12 16h.01' stroke-linecap='round'/%3E%3Cpath d='m10.3 3.9-7 12.1A2 2 0 0 0 5 19h14a2 2 0 0 0 1.7-3l-7-12.1a2 2 0 0 0-3.4 0Z' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  border: 1px solid rgb(251 146 60 / 25%);
+  border-radius: 999px;
+  color: #fdba74;
+  display: flex;
+  height: 4rem;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  width: 4rem;
+}
+
+.users-view__eyebrow {
+  color: #cbd5e1;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.users-view h1 {
+  font-size: clamp(1.65rem, 4vw, 2.25rem);
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.users-view__animated-text,
+.users-view__letter {
+  display: inline-block;
+}
+
+.users-view__letter {
+  will-change: color, opacity, transform;
+}
+
+.users-view__sr-only {
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.users-view__description {
+  color: #94a3b8;
+  line-height: 1.6;
+  margin: 0.9rem auto 0;
+  max-width: 27rem;
+}
+
+.users-view__retry-button {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  border: 1px solid rgb(254 202 202 / 32%);
+  border-radius: 0.75rem;
+  box-shadow: 0 9px 24px rgb(127 29 29 / 38%), inset 0 1px rgb(255 255 255 / 16%);
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  margin-top: 1.75rem;
+  padding: 0.7rem 1.15rem;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.users-view__retry-button:hover {
+  background: linear-gradient(135deg, #f87171, #dc2626);
+  box-shadow: 0 12px 30px rgb(127 29 29 / 58%), inset 0 1px rgb(255 255 255 / 18%);
+  transform: translateY(-2px);
+}
+
+.users-view__retry-button:focus-visible {
+  outline: 3px solid #fca5a5;
+  outline-offset: 3px;
+}
+
+.users-view__list {
+  display: grid;
+  gap: 0.7rem;
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  text-align: left;
+}
+
+.users-view__list li {
+  background: rgb(0 0 0 / 30%);
+  border: 1px solid rgb(226 232 240 / 10%);
+  border-radius: 0.75rem;
+  color: #e2e8f0;
+  padding: 0.85rem 1rem;
+}
+
+@keyframes users-view-enter {
+  from { opacity: 0; transform: translateY(10px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes users-view-float {
+  50% { transform: translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .users-view__content,
+  .users-view__status-card,
+  .users-view__orb-wrap {
+    animation: none;
+  }
+
+  .users-view__retry-button {
+    transition: none;
+  }
+}
